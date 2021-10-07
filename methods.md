@@ -45,11 +45,11 @@ In both head and body we identified a nested partition with 4 levels, with 2 blo
 ### GO
 
   Tissue     Level 1          Level 2             Level 3    Level 4
---------    -------------   -----------------  ----------- -----------
+--------    --------------   -----------------  ----------- -----------
 head         73\% (41/56)     100\% (12)        100\% (4)    100\% (2)
 body         77\% (41/53)     92\%  (12/13)     100\% (4)    100\% (2)
       
-Table:  Number of blocks at each level that show significant GO enrichment at the 5\% FDR level.
+Table:  Table 1: Number of blocks at each level that show significant GO enrichment at the 5\% FDR level.
 
 ### WGCNA comparison (this will probably be a separate supplementary document)
 
