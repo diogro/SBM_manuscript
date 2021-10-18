@@ -2,15 +2,24 @@
 title: Gene co-expression and the Stochastic Block Model
 bibliography: [./references.bib]
 csl: [./evolution.csl]
+mainfont: Skolar PE TEST Regular
+sansfont: Skolar Sans PE TEST
+mainfontoptions:
+- Numbers=Lowercase
+- Numbers=Proportional
+geometry:
+- top=30mm
+- left=25mm
+- right=25mm
 ---
 
 # Intro
 
 Gene co-expression networks allow for the associations between genes to inform our biological understanding of cell and organismal function. Associations between gene expressions can be indicative of common function, and the number of connections can be an indicator of central or regulatory genes [@Van_Dam2018-nf]. Due to the large dimensionality of gene expression data, often composed of several thousands of gene expressions, one major tool in the analysis of co-expression is gene clustering: separating the genes into related groups, which can then be explored separately [@Dhaeseleer2005-jv]. This drastically reduces the number of genes we need to consider at the same time, and allows for the identification of hubs or centrally connected genes that can then be used to inform further experimental  validation [@Langfelder2008-qa; @Imenez_Silva2017-ic]. 
 
-The question is, given a co-expression network, how should we cluster the genes? The general idea behind several methods is to look for similar genes, as these are expected to be involved in related biological functions, but several definitions of similarity have been used. The most basic measure of similarity borrows from classical morphological integration theory, and attempts find gene modules based on their correlations, where genes in the same modules are expected to be highly correlated and perform similar functions, while genes in different modules are expected to have a low correlation [@Olson1999-fh; @Magwene2001-an; @Wagner2007-jt]. Other methods use the correlations to create other measures of similarity, which are then used as inputs to clustering algorithms. Weighted correlation network analysis [WGCNA, @Langfelder2008-qa] uses a power transformation of the correlations between genes expressions (or a topological similarity measure built with these transformed correlations) [@Zhang2005-kh; @Dong2007-ff] as a similarity measure that is then separated into modules using hierarchical clustering. One of the main objectives of WGCNA is finding hub genes, which have high connectivity withing modules and are clearly identified by the hierarchical clustering. Other methods borrow from network analysis and attempt to explicitly maximize the Newman Modularity [@Newman2006-fv] of the weighted gene network. Modulated Modularity Clustering [MMC, @Stone2009-hv] uses an adaptive algorithm to find a non-linear distance between genes based on their correlations that maximizes the number of modules. All these methods impose a modular structure on the gene expression network, where similar genes are expected to be correlated with each other. 
+The question is, given a co-expression network, how should we cluster the genes? The general idea behind several methods is to look for similar genes, as these are expected to be involved in related biological functions, but several definitions of similarity have been used. The most basic measure of similarity borrows from classical morphological integration theory, and attempts find gene modules based on their correlations. In this context, genes in the same modules are expected to be highly correlated and perform similar functions, while genes in different modules are expected to have low correlations [@Olson1999-fh; @Magwene2001-an; @Wagner2007-jt]. Other methods use the correlations to create other measures of similarity, which are then used as inputs to clustering algorithms. Weighted correlation network analysis [WGCNA, @Langfelder2008-qa] uses a power transformation of the correlations between genes expressions (or a topological similarity measure built with these transformed correlations) [@Zhang2005-kh; @Dong2007-ff] as a similarity measure that is then separated into modules using hierarchical clustering. One of the main objectives of WGCNA is finding hub genes, which have high connectivity withing modules and are clearly identified by the hierarchical clustering. Other methods borrow from network analysis and attempt to explicitly maximize the Newman Modularity [@Newman2006-fv] of the weighted gene network. Modulated Modularity Clustering [MMC, @Stone2009-hv] uses an adaptive algorithm to find a non-linear distance between genes based on their correlations that maximizes the number of modules. All these methods impose a modular structure on the gene expression network, where similar genes are expected to be correlated with each other. 
 
-All of these approaches come with several downsides. WGCNA involves manually tunning several parameters, and for this the method leans heavily on the expectation that gene co-expression networks (and biological networks in general) should be approximately scale-free [@Dong2007-ff; @Bergmann2004-vw; @Jeong2000-xe], but, despite its popularity, this expectation might be somewhat unwarranted [@Khanin2006-ve; @Stumpf2005-ed]. Even with optimal parameters, WGCNA fails to assign a substantial proportion of genes to any module. While WGCNA is efficient in finding hub genes, if some functional gene group does not have a hub or has low average similarities, this group will never be identified. Both limitations potentially leave biological insight on the table by ignoring network structures that are different from what the method expects. Methods that use modularity maximization, like MMC, are subject to know statistical problems, paradoxically being prone to both overfitting (finding modular community structure where there is none [@Guimera2004-jq]) and under-fitting (failing to find modular structure in large networks, due to a problem know as the resolution limit [@Fortunato2007-ao]). 
+All of these approaches come with several downsides. WGCNA involves manually tunning several parameters, and for this the method leans heavily on the expectation that gene co-expression networks (and biological networks in general) should be approximately scale-free [@Dong2007-ff; @Bergmann2004-vw; @Jeong2000-xe], but, despite its popularity, this expectation might be somewhat unwarranted [@Khanin2006-ve; @Stumpf2005-ed]. Even with optimal parameters, WGCNA fails to assign a substantial proportion of genes to any module. While WGCNA is efficient in finding hub genes, if some functional gene group does not have a hub or has low average similarities, this group will never be identified. Both limitations potentially leave biological insight on the table by ignoring network structures that are different from what the method expects. Methods that use modularity maximization, like MMC, are subject to know statistical problems, surprinsingly being prone to both overfitting (finding modular community structure where there is none [@Guimera2004-jq]) and under-fitting (failing to find modular structure in large networks, due to a problem know as the resolution limit [@Fortunato2007-ao]). 
 
 Here, we propose that a more general measure of similarity, which is not restricted to high correlated genes, can be used to find meaningful genes groups, with high correlation between groups and biological function. To achieve this, we use a weighted nested degree corrected stochastic block model (wnDC-SBM, or SBM for brevity) [@Peixoto2017-zw; @Peixoto2018-or]. The co-expression methods described above attempt find group structure by clustering genes into assortative modules: groups of genes that are more associated with each other than with other genes. Clustering genes in tightly correlated modules aligns with our intuition that groups of genes performing similar functions should be highly correlated, but it is not necessary for a network to be organized in this assortative fashion, and so using methods that assume assortativity will necessarily ignore alternative organizations. The SBM is different from other clustering methods in that it does not attempt to find assortative modules. Instead, any information brough by the structural similarity between genes in the network can potentially be used to inform the clustering. To be sure, the SBM can capture an assortative modular pattern if it is present, but it is general enough to also capture other network organizations [@Zhang2020-up]. While in the context of the SBM assortativity is not the main driver of the clustering, it can be used to interpret the partitioning we obtain from the clustering. We show that a SBM, a model with no free parameters, can find many more meaningful blocks than competing methods, as revealed by highly specific gene ontology enrichment, and show that the expected assortativity of biologically meaningful blocks is not necessarily present.
 
@@ -23,7 +32,7 @@ We measure gene expression using RNASeq in a large, outbred population of D. Mel
 
 ## Gene selection
 
-Using the gene expression measures for both tissues we generate co-expression network graphs. In theory, we could proceed using a full network in which all pairs of genes are connected but fitting the SBM with this fully connected graph is computationally too expensive. So, to reduce the size and connectivity of the network, we impose a stringent false discovery rate (FDR) cut-off on the edges, removing edges with a large p-value associated with the correlation between the corresponding genes. As edges are removed, some genes with only non-significant correlations become disconnected from the rest of the network and can be removed. By gradually reducing the FDR threshold, we reduce the size and density of the gene network, until we arrive at a viable set of genes and connections with which to fit the SBM. After some experimentation, we decided that an FDR of 1e-4 for the head and 1e-5 for the body kept a large number of genes (head:3589, body:3253) and allowed us to fit the SBM in days instead of weeks. This set of genes is used in all the different clustering methods. 
+Using the gene expression measures for both tissues we generate co-expression network graphs. In theory, we could proceed using a full network in which all pairs of genes are connected but fitting the SBM with this fully connected graph is computationally too expensive. So, to reduce the size and connectivity of the network, we impose a stringent Benjamini-Hochberg false discovery rate (FDR) cut-off on the edges, removing edges with a large p-value associated with the correlation between the corresponding genes. As edges are removed, some genes with only non-significant correlations become disconnected from the rest of the network and can be removed. By gradually reducing the FDR threshold, we reduce the size and density of the gene network, until we arrive at a viable set of genes and connections with which to fit the SBM. After some experimentation, we decided that an FDR of 1e-4 for the head and 1e-5 for the body kept a large number of genes (head:3589, body:3253) and allowed us to fit the SBM in days instead of weeks. This set of genes is used in all the different clustering methods. 
 
 ## Edge weights 
 
@@ -63,44 +72,52 @@ The nested SBM uses a series of non-parametric hierarchical priors that greatly 
 
 ### Assortativity and Modularity
 
+Instead of attepting to maximize modularity, when using the nested SBM we can ask if the infered partition is modular or not by calculating the Newman Modularity at each level of the nested hierarchy. This is done by using the usual modularity formula at each level:
+
+$$
+
+$$
+
 ## WGCNA and MMC
 
-We use WGCNA to cluster the genes into module, using the TOM similarity with a soft threshold of 6 in a signed similarity measure. We use a signed network (as opposed to ignoring the sign of the correlation between genes) because inspection of the gene network graph reveals large blocks of correlations linked by negative correlations in our data, suggesting large scale structure that would be obscured by using the unsigned method. Unsigned similarity has been shown to lead to more robust modules [@Mason2009-ej], and the SBM can use the sign of the correlation in the clustering. MMC has no option to use the sign of the correlation, so it is run using the absolute value of the Spearman correlations. WGCNA produces modules by cutting the hierarchical clustering tree at different heights, and we use the dynamic cutting option to create the modules.
+We use WGCNA to cluster the genes into modules using the topological overlap measure (TOM) similarity with a soft threshold of 6 in a signed similarity measure. WGCNA produces modules by cutting the hierarchical clustering tree at different heights, and we use the dynamic cutting option to create the modules. We use a signed network (as opposed to ignoring the sign of the correlation between genes) because inspection of the gene network graph reveals large blocks of correlations linked by negative correlations in our data, suggesting large scale structure that would be obscured by using the unsigned method. Unsigned similarity has been shown to lead to more robust modules [@Mason2009-ej], and the SBM can use the sign of the correlation in the clustering. MMC has no option to use the sign of the correlation, so we use the absolute value of the Spearman correlations.
 
 ## Gene Ontology enrichment
 
-We assess the biological relevance of the clustering obtained by each method by comparing their gene ontology (GO) enrichment. We ran GO in all identified clusters using R packages ClusterProfiler [@Yu2012-tz] and the online Gorilla tool [@Eden2009-qs].
+We assess the biological relevance of the clustering obtained by each method by comparing their gene ontology (GO) enrichment. We filter enrichment using a Benjamini-Hochberg FDR rate of 5\%, with a minimum of 4 genes in the enriched set. We ran GO in all identified clusters using R packages ClusterProfiler [@Yu2012-tz] and the online tool GOrilla [@Eden2009-qs].
 
 # Results
 
-## SBM
+## Clustering
 
-In both head and body we identified a nested partition with 4 levels, with 2 blocks at level 4 (the coarsest), 4 in level 3, 12 (head) and 13 (body) at level 2, and 56 (head) and 53 (body) at level 1. 
+Gene clustering for all methods is presented in table S1. Using the SBM, in both head and body we identified a nested partition with 4 levels, with 2 blocks at level 4 (the coarsest), 5 (head) and 4 (body) in level 3, 13 (head) and 14 (body) at level 2, and 56 (head) and 57 (body) at level 1. The block structure infered by the SBM is shown in fig. @fig:Emats.
+
+![SBM Level 1 blocks colored by their weighted conectivity. Upper levels of the nested hierarchy are shown by the red lines.](figures/SBM_Ematrix.png){#fig:Emats}
+
+WGCNA partioned 2717 genes into 9 modules in the body and 2032 genes into 8 in the head. WGCNA did not cluster 536 genes in the body and 1557 in the head. Given that the number of modules in WGCNA is somewhat similar to the number of blocks at level 2 of the SBM, we compare these two partitions in fig. @fig:wgcna_compare. Overall, the clusterings are very different, but there are some common patterns. For example, Level-2 blocks 0, 2 and 6 in the body are split between modules 1 and 4, and all these blocks are all in the same Level-3 block 0, suggesting some similarity that could explaing the WGCNA clustering. Also in the body genes, something similar happens in Level-2 blocks 3, 4 and 5, which are split between modules 2 and 3. In the head, Level-2 block 2 is all assigned to module 1. Level-2 blocks 0 and 12 are split between modules 4 and 6, and both are in Level-3 block 0. So, while the clustering is different, there is some comonality between WGCNA and the SBM.
+
+![Comparison of the clustering in WGCNA and in levels 2 and 3 of the SBM for the gene expressions in the body (left) and the head (right). Each point corresponds to a gene. The x axis corresponds to the Level 2 SBM blocks, y axis the WGCNA modules. Colors correpond to the (coarser) level 3 of the SBM.](figures/WGCNA_comparison.png){#fig:wgcna_compare}
 
 
 ### GO
 
   Tissue     Level 1          Level 2             Level 3    Level 4
 --------    --------------   -----------------  ----------- -----------
-head         73\% (41/56)     100\% (12)        100\% (4)    100\% (2)
-body         77\% (41/53)     92\%  (12/13)     100\% (4)    100\% (2)
+head         66\% (37/56)     100\% (13/13)     100\% (5/5)  100\% (2/2)
+body         68\% (39/57)     92\%  (13/14)     100\% (4/4)  100\% (2/2)
       
-Table:  Table 1: Number of blocks at each level that show significant GO enrichment at the 5\% FDR level.
+Table: Number of blocks at each level that show significant GO enrichment at the 5\% FDR level with a minimum of 4 genes in the enriched set.
 
-## WGCNA 
+The majority of blocks in SBM show some level of GO enrichment (Table 1). 
 
-We compare the gene blocks from the SBM to the modules inferred from WGCNA. WGCNA identifies 10 modules in the body and 20 in the head. The "other" module in WGCNA is composed of low degree genes that are not tightly linked to anything, and so are not included in any of the modules. SBM has no difficulty clustering these genes. Some WGCNA modules are reminiscent of the recovered blocks, but several other things are included in the same group, while the SBM separates them more finely. Enrichment in the WGCNA modules is less specific, and of the 20 recovered...
 
-### GO
-
-## MMC
 
 
 # Discussion
 
 - SBM recovered many more blocks and with more specific enrichment.
 - No relation between assortativity and enrichment, several of the uncovered blocks are non-assortative.
-- WGCNA and MMC fail to recover several clear blocks in SCM, like the neuro blocks in the head and the translation blocks in both tissues.
+- WGCNA and MMC fail to recover several clear blocks in SBM, like the neuro blocks in the head and the translation blocks in both tissues.
 - SBM also reveals other biological insights, like the association between translation and cell respiration in the body.
 - Imposing more structure than is warranted may be preventing us from extracting meaningful information from gene expression networks.
 
