@@ -8,10 +8,10 @@ mainfontoptions:
 - Numbers=Lowercase
 - Numbers=Proportional
 geometry:
-- top=30mm
+- top=20mm
 - left=25mm
 - right=25mm
-- bottom=30mm
+- bottom=20mm
 ---
 
 # Intro
@@ -89,7 +89,7 @@ where $B$ is the number of blocks. Using this definition, $M = \frac{1}{B} \sum_
 
 ## WGCNA and MMC
 
-We use WGCNA to cluster the genes into modules using the topological overlap measure (TOM) similarity with a soft threshold of 6 in a signed similarity measure. WGCNA produces modules by cutting the hierarchical clustering tree at different heights, and we use the dynamic cutting option to create the modules. We use a signed network (as opposed to ignoring the sign of the correlation between genes) because inspection of the gene network graph reveals large blocks of correlations linked by negative correlations in our data, suggesting large scale structure that would be obscured by using the unsigned method. Unsigned similarity has been shown to lead to more robust modules [@Mason2009-ej], and the SBM can use the sign of the correlation in the clustering. MMC has no option to use the sign of the correlation, so we use the absolute value of the Spearman correlations.
+We use WGCNA to cluster the genes into modules using the topological overlap measure (TOM) similarity with a soft threshold of 6 in a signed similarity measure. WGCNA produces modules by cutting the hierarchical clustering tree at different heights, and we use the dynamic cutting option to create the modules. We use a signed network (as opposed to ignoring the sign of the correlation between genes) because inspection of the gene network graph reveals large blocks of correlations linked by negative correlations in our data, suggesting large scale structure that would be obscured by using the unsigned method. Unsigned similarity has been shown to lead to more robust modules [@Mason2009-ej], and in tunning WGCNA we were able to cluster more genes and find more modules using the signed method. MMC has no option to use the sign of the correlation, so we use the absolute value of the Spearman correlations.
 
 ## Gene Ontology enrichment
 
@@ -105,12 +105,26 @@ Gene clustering for all methods is presented in table S1. Using the SBM, in both
 
 WGCNA partitioned 2717 genes into 9 modules in the body and 2032 genes into 8 in the head. WGCNA did not cluster 536 genes in the body and 1557 in the head. Given that the number of modules in WGCNA is somewhat similar to the number of blocks at level 2 of the SBM, we compare these two partitions in fig. @fig:wgcna_compare. Overall, the partitions are different, but there are some common patterns. For example, Level-2 blocks 0, 2 and 6 in the body are split between modules 1 and 4, and these blocks are all in the same Level-3 block 0, suggesting some similarity that could explain the WGCNA clustering. Also in the body genes, we find a similar patter for Level-2 blocks 3, 4 and 5, which are split between modules 2 and 3. In the head, Level-2 block 2 is all assigned to module 1. Level-2 blocks 0 and 12 are split between modules 4 and 6, and both are in Level-3 block 0. So, while the clustering is different, WGCNA and the SBM do capture some common signal.
 
+MMC failed to cluster most genes, placing almost all genes into the same large module. Given this poor performance on our data, we do not discuss MMC further and instead focus on comparing SBM to WGCNA.
+
 ![Comparison of the clustering in WGCNA and in levels 2 and 3 of the SBM for the gene expressions in the body (left) and the head (right). Each point corresponds to a gene. The x axis corresponds to the Level 2 SBM blocks, y axis the WGCNA modules. Colors correspond to the (coarser) level 3 of the SBM.](figures/WGCNA_comparison.png){#fig:wgcna_compare}
 
+## Modularity and assortativity
 
-### Gene Ontology enrichment
+Modularity and assortativity are markedly lower in the body (fig. @fig:modularity). Several blocks in the body have negative assortativity, and the maximum value of modularity is 0.04 at level 2 of the nested hierarchy. Even so, several blocks show GO enrichment across the distribution of assortativity. In the head, modularity increases at coarser levels of the nested hierarchy, with a peak at 0.3 in level 4. This is still a relatively low value, and illustrates how assuming the gene network should be modular can prevent us from finding an informative clustering. Most blocks in the head show positive assortativity, and again GO enrichment is present across the range. 
 
-The majority of blocks in SBM show some level of GO enrichment (Table 1). In particular, several of the Level-3 blocks show a remarkable consistency in their enrichment. For example, Level-3 block 0 in the head is related to neural signaling and sensory perception, with its daughter blocks at Level-2 (0 and 12) showing enrichment for: (Level-2 0) signal transduction, synapse organization, nervous system process, phototransduction, G protein-coupled receptor signaling pathway (12) neural development,  trans-synaptic signaling, behavior. Several of these enrichments are exclusive to one of the level-1 blocks. Perhaps the most surprising enrichment is for the blocks associated with translation, in which all of the ribosomal proteins are clustered almost exclusively in level-1 blocks in the body and in the head. Several other Level-2 and Level-1 blocks are readily identifiable as related to development, DNA transcription, cell respiration, cell cycle regulation, immune response. 
+
+![Assortativity in the SBM level-1 blocks and modularity for all nested levels. GO enriched blocks are show in yellow and appear all along the distribution of assortativity. Head modularity increases at upper levels, while body modularity is lower and peaks at level 2.](figures/assortativity.png){#fig:modularity}
+
+## Gene Ontology enrichment
+
+The majority of blocks in SBM show some level of GO enrichment (Table 1). In particular, several of the Level-3 blocks show a remarkable consistency in their enrichment. For example, Level-3 block 0 in the head is related to neural signaling and sensory perception, with its daughter blocks at Level-2 (0 and 12) showing enrichment for: (Level-2 0) signal transduction, synapse organization, nervous system process, phototransduction, G protein-coupled receptor signaling pathway (12) neural development,  trans-synaptic signaling, behavior. Several of these enrichments are exclusive to one of the level-1 blocks. Perhaps the most surprising enrichment is for the blocks associated with translation, in which all of the ribosomal proteins are clustered almost exclusively in level-1 blocks in the body and in the head. We discuss some notable blocks below. Several other Level-2 and Level-1 blocks are readily identifiable as related to development, DNA transcription, cell respiration, cell cycle regulation, immune response, sugar metabolism, among others. All WGCNA modules show GO enrichment. Supporting Information table 1 shows all GO enrichmentes for all SBM blocks and WGCNA modules. 
+
+### Individual clusters
+
+Level 2 block 0-0-0 in the head is one of the easiest to interpret, being entierly related to brain tissue function. Figure @fig:go_map shows the top 10 GO categories for each of the level-1 blocks in block 0-0-0, and the most neuronal enriched WGCNA grouping, module 4. The SBM blocks separate vesicle exocitosis, neuronal differentiation, phototransduction, synaptic signaling, and, interestingly, there is a block related to alternative mRNA splicing, which is though to be more common in brain tissues [@Su2018-nz]. WGCNA module 4 recovers some of this enrichment, but in a less granular way. Only the phototransduction part of the enrichment is separated in module 6. Several of these level-1 blocks (especially 0, 7 and 24) are among the most assortative (see fig. @fig:modularity and following section), and so are prime candidates for detection in WGCNA. The alternative splicing module has a much lower assortativity, and so its not surprising that WGCNA could not detect it.
+
+Some of the most specific enrichments in the SBM are the translation related blocks (Figure @fig:go_translation). In both body and head, ribossomal proteins are clustered in small and highly enriched level-1 blocks. Six level-1 blocks in the head and two in the body are composed of only ribossomal related protein genes. All are very specific, being composed of between 7-22 genes, and have low assortativity, varying between $-0.001$ and $0.07$ and with a mean assortativity of $0.02$. There is no equivalent module in WGCNA, but all of the translation related genes are in the same much larger modules (module 1 in the head, 449 genes; and module 5 in the body, 324 genes), both of which show enrichment for translation but also for several other categories. 
 
 The SBM is also able to capture exceedingly faint biological signals. For example, level-1 blocks 55 in the head and 31 in the body are similar in that they are visibly less connected to the rest of the blocks, as we can see in fig. @fig:Emats. They are both very small, being composed of 17 and 10 genes, respectively. This similarity in confirmed by the common GO enrichment for both blocks (immune response) and some common genes (Dpt - diptericin, Dro - drosocin).
 
@@ -121,16 +135,11 @@ body         68\% (39/57)     92\%  (13/14)     100\% (4/4)  100\% (2/2)
       
 Table: Number of blocks at each level that show significant GO enrichment at the 5\% FDR level with a minimum of 4 genes in the enriched set.
 
-![GO in a neuro related level 2 block in the head (0-0-0). Panels show the corresponding level 1 blocks. Labeled nodes are the top 10 GO categories by number of genes, grey unlabeled nodes correspond are the genes.](figures/000_go_map.png){#fig:go_map}
+![Enriched GO categories in a level-2 block in the head (0-0-0), related to neural signaling. Panels show the corresponding level-1 blocks. Labeled nodes are the top 10 GO categories by number of genes, gray unlabeled nodes are genes linked to the GO categories. The last panel shows the most similar WGCNA module, which also contains signaling related genes, but at a lower resolution and fails to cluster the phototransduction genes, which are in module 6.](figures/000_go_map.png){#fig:go_map}
 
-\newpage
-
-### Modularity and assortativity
-
-Modularity and assortativity are markedly lower in the body (fig. @fig:modularity). Several blocks in the body have negative assortativity, and the maximum value of modularity is 0.04 at level 2 of the nested hierarchy. Even so, several blocks show GO enrichment across the distribution of assortativity. In the head, modularity increases at coarser levels of the nested hierarchy, with a peak at 0.3 in level 4. This is still a relatively low value, and illustrates how assuming the gene network should be modular can prevent us from finding an informative clustering. Most blocks in the head show positive assortativity, and again GO enrichment is present across the range. 
+![Enriched GO categories from translation related blocks for the Head and Body. Labeled nodes are the top 10 GO categories by number of genes, gray unlabeled nodes are genes linked to the GO categories.](figures/Translation_go_map.png){#fig:go_translation}
 
 
-![Assortativity in the SBM level-1 blocks and modularity for all nested levels. GO enriched blocks are show in yellow and appear all along the distribution of assortativity. Head modularity increases at upper levels, while body modularity is lower and peaks at level 2.](figures/assortativity.png){#fig:modularity}
 
 \newpage
 
