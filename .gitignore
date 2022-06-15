@@ -4,3 +4,4 @@ methods.html
 .vscode
 .DS_Store
 *.pdf
+out/desktop.ini
