@@ -1,9 +1,29 @@
 ---
 title: Clustering using the Stochastic Block Model shows that gene expression networks are not assortative
 author:
-- Diogo Melo
-- Luisa Pallares
-- Julien Ayroles
+  - Diogo Melo:
+      institute: lsi
+      email: damelo@princeton.edu
+      orcid: 0000-0002-7603-0092
+      equal_contributor: "yes"
+  - Luisa Pallares:
+      institute: fml
+      equal_contributor: "yes"
+      orcid: 0000-0001-6547-1901
+  - Julien Ayroles:
+      institute:
+        - lsi
+        - eeb
+      email: jayroles@princeton.edu
+      correspondence: "yes"
+      orcid: 0000-0001-8729-0511
+institute:
+  - lsi:
+      name: Lewis-Sigler Institute for Integrative Genomics, Princeton University
+  - eeb:
+      name: Department of Ecology and Evolutionary Biology, Princeton University
+  - fml:
+      name: Friedrich Miescher Laboratory, Max Planck Society
 output: pdf_document
 geometry:
 - top=20mm
@@ -118,7 +138,7 @@ We assess the biological relevance of the clustering obtained by each method by 
 
 Gene clustering for all methods is presented in table S1. Using the SBM, in both head and body we identified a nested partition with 5 levels, with 2 blocks at level 5 (the coarsest), 3 blocks at level 4, 6 (head) and 9 (body) in level 3, 21 (head and body) at level 2, and 82 (head) and 78 (body) at level 1. The block structure inferred by the SBM is shown in @fig:Emats. In what follows, when discussing specific SBM blocks, we either explicitly define which level of the nested hierarchy we are referring to, or give the full path to a given block. So, level-1 block 12 in the head can also be referred as 12-7-2-2-1, and level-2 block 10 in the body is also 10-1-2-1. 
 
-![SBM Level 1 blocks colored by their weighted connectivity, within and between blocks. Upper levels of the nested hierarchy are shown by the red lines.](figures/SBM_Ematrix.png){#fig:Emats}
+![A and B: SBM Level 1 blocks colored by their weighted connectivity, within and between blocks. Upper levels of the nested hierarchy are shown by the red lines. C and D: A full representation of the fitted block model. Genes are shown at the perimeter, colored by their level 2 blocks. The internal graph shows the hierarchical structure of the fitted SBM. A subsample of 30.000 edges are shown connecting the genes, and they are colored according to their weights, with more positive weights plotted on top. Inferred biological function of level-2 blocks derived from interpreting GO enrichment is indicated by the labels.](figures/SBM_Ematrix.png){#fig:Emats}
 
 WGCNA partitioned 2118 genes into 7 modules in the body and 1600 genes into 7 in the head. WGCNA did not cluster 3006 genes in the body and 3661 in the head. Given that the number of modules in WGCNA is somewhat similar to the number of blocks at level 3 of the SBM, we compare these two partitions in @fig:wgcna_compare. Overall, the partitions are different, but there are some common patterns. For example, Level-3 blocks 0, 2, 5, and 6 in the body are split between modules 3 and 4, and these blocks are all in the same Level-4 block 0, suggesting some similarity that could explain the WGCNA clustering. Blocks 7 and 9 are both fully assigned to module 2. Also in the body genes, we find a similar patter for Level-3 blocks 1, 3, and 4, which are mostly split between modules 1 and 2. In the head, Level-3 block 4 is all assigned to modules 1 and 2. Level-3 blocks 1 and 2 are split between modules 1 and 2, and both are in Level-4 block 2. So, while the clustering is different, WGCNA and the SBM do capture some common signal.
 
@@ -139,8 +159,8 @@ The majority of blocks in SBM show some level of GO enrichment (Table 1). In par
 
   Tissue     Level 1          Level 2           Level 3        Level 4     Level 5
 --------    --------------   ---------------  ------------- ------------- -------------
-head         63\% (52/82)     95\% (20/21)     100\% (6/6)   100\% (3/3)   100\% (2/2)
-body         68\% (56/78)     95\% (20/21)     100\% (9/9)   100\% (3/3)   100\% (2/2)
+Head         63\% (52/82)     95\% (20/21)     100\% (6/6)   100\% (3/3)   100\% (2/2)
+Body         68\% (56/78)     95\% (20/21)     100\% (9/9)   100\% (3/3)   100\% (2/2)
       
 Table: Number of blocks at each level that show significant GO enrichment at the 5\% FDR level with a minimum of 4 genes in the enriched set.
 

@@ -1,11 +1,6 @@
 all:
-	pandoc main.md -s --filter pandoc-crossref --bibliography references.bib --biblatex -o main.tex --pdf-engine=xelatex
-	xelatex main
-	biber main
-	xelatex main
-	xelatex main
-	mv main.pdf out/
-	ls main* | grep -v main.md | xargs rm
+	pandoc main.md  --lua-filter=scholarly-metadata.lua --lua-filter=author-info-blocks.lua  --filter pandoc-crossref  --citeproc  --pdf-engine=xelatex -o main.pdf
+	mv main.pdf out/	
 doc:
 	pandoc main.md -s --filter pandoc-crossref --bibliography references.bib --biblatex -o main.docx 
 	mv main.docx out/
