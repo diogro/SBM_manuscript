@@ -46,12 +46,12 @@ mainfont: Skolar PE TEST Regular
 mainfontoptions:
 - Numbers=Lowercase
 - Numbers=Proportional
-csl: ./evolution.csl
+csl: ./apa.csl
 sansfont: Skolar Sans PE TEST
 bibliography: ./references.bib
 ---
 
-# Intro
+# Introduction
 
 Gene co-expression networks allow for the associations between genes to inform our biological understanding of cell and organismal function. Associations between gene expressions can be indicative of common function, and the number of connections can be an indicator of central or regulatory genes [@Van_Dam2018-nf]. Due to the large dimensionality of gene expression data, often composed of several thousands of gene expressions, one major tool in the analysis of co-expression is gene clustering: separating the genes into related groups, which can then be explored separately [@Dhaeseleer2005-jv]. This drastically reduces the number of genes we need to consider at the same time, and allows for the identification of hubs or centrally connected genes that can then be used to inform further experimental validation [@Langfelder2008-qa; @Imenez_Silva2017-ic]. 
 
@@ -68,9 +68,9 @@ The co-expression methods described above attempt find group structure by cluste
 
 We measure gene expression using RNASeq in a large, outbred population of D. Melanogaster. We measure expression separately for the body and the head. 
 
-## Gene selection
+## Gene co-expression network
 
-Using the gene expression measures for both tissues we generate co-expression network graphs. In theory, we could proceed using a full network in which all pairs of genes are connected but fitting the SBM with this fully connected graph is computationally too expensive. So, to reduce the size and connectivity of the network, we impose a stringent Benjamini-Hochberg false discovery rate (FDR) cut-off on the edges, removing edges with a large p-value associated with the correlation between the corresponding genes. As edges are removed, some genes with only non-significant correlations become disconnected from the rest of the network and can be removed. By gradually reducing the FDR threshold, we reduce the size and density of the gene network, until we arrive at a viable set of genes and connections with which to fit the SBM. After some experimentation, we decided that an FDR of 1e-2 for the head and 1e-3 for the body kept most of the genes (head:5261, body:5124) and reduced the graph density to a manageable level. This set of genes is used in all the different clustering methods. 
+Using the gene expression measures for both tissues we generate co-expression network graphs. In theory, we could proceed using a full network in which all pairs of genes are connected, but fitting the SBM with this fully connected graph is computationally too expensive. So, to reduce the size and connectivity of the network, we impose a stringent Benjamini-Hochberg false discovery rate (FDR) cut-off on the edges, removing edges with a large p-value associated with the correlation between the corresponding genes. As edges are removed, some genes with only non-significant correlations become disconnected from the rest of the network and can be removed. By gradually reducing the FDR threshold, we reduce density of the gene network while attempting to keep as many genes as possible, until we arrive at a viable set of genes and connections with which to fit the SBM. After some experimentation, we decided that an FDR of 1e-2 for the head and 1e-3 for the body kept most of the genes (head:5261, body:5124) and reduced the graph density to a manageable level. This set of genes is used in all the different clustering methods. 
 
 ## Edge weights
 
@@ -130,7 +130,7 @@ We use WGCNA to cluster the genes into modules using the topological overlap mea
 
 ## Gene Ontology enrichment
 
-We assess the biological relevance of the clustering obtained by each method by comparing their gene ontology (GO) enrichment. We filter enrichment using a Benjamini-Hochberg FDR rate of 5\%, with a minimum of 4 genes in the enriched set. We ran GO in all identified clusters using the clusterProfiler R package v4.2.2 [@Yu2012-tz].
+We assess the biological relevance of the clustering obtained by each method by comparing their gene ontology (GO) enrichment. We filter enrichment using a Benjamini-Hochberg FDR rate of 5\%, with a minimum of 4 genes in the enriched set. All gene ontology analysis were done using the clusterProfiler R package v4.2.2 [@Wu2021-db] and the Org.Dm.eg.db database package v3.15 [@godb].
 
 # Results
 
