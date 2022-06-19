@@ -5,3 +5,5 @@ methods.html
 .DS_Store
 *.pdf
 out/desktop.ini
+out/*Icon*
+*Icon*
