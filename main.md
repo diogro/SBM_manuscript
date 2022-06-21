@@ -49,6 +49,8 @@ mainfontoptions:
 csl: ./pandoc/apa.csl
 sansfont: Skolar Sans PE TEST
 bibliography: ./references.bib
+keywords: [modularity, gene co-expression, WGCNA, MMC, clustering, RNA-seq, GO enrichment]
+abstract: Finding communities in gene co-expression networks is a common first step toward extracting biological insight from these complex datasets. Most community detection algorithms expect genes to be organized into assortative modules, that is, groups of genes that are more associated with each other than with genes in other groups. While it is reasonable to expect that these modules exist, using methods that assume they exist _a priori_ is risky, as it guarantees that alternative organizations of gene interactions will be ignored. Here, we explore the use of a recently developed community detection method, the weighted degree corrected stochastic block model (SBM), that does not assume that assortative modules exist. Instead, the SBM attempts to efficiently use all information contained in the co-expression graph to separate the genes into hierarchically organized blocks of genes. Using RNA-seq gene expression data measured in two tissues derived from an outbred population of _Drosophila melanogaster_, we show that the SBM is able to find ten times more groups than competing methods. Furthermore, a majority of these groups show remarkably specific gene ontology enrichment, suggesting a clear biological interpretation of the resulting communities. Surprisingly, there is no relation between assortative modularity and gene ontology enrichment, underscoring how assuming assortativity can prevent us from finding biologically meaningful communities.
 ---
 
 # Introduction
