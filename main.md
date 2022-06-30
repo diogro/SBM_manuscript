@@ -116,13 +116,15 @@ The nested SBM uses a series of non-parametric hierarchical priors that greatly 
 
 ### Modularity and Assortativity
 
-Instead of attempting to maximize Newman modularity, when using the nested SBM, we can ask if the inferred partition is modular or not by calculating the Newman modularity at each level of the nested hierarchy. Modularity is calculated at each nested level using:
+Although the nested SBM does not attempt to find the partition of genes that maximizes modularity (see definition below), when using this method we can ask if the inferred partition is modular or not by calculating the Newman modularity at each level of the hierarchy. Newman Modularity is calculated at each nested level using:
 
 $$
 M = \frac{1}{2E} \sum_r e_{rr} - \frac{e_{r}^2}{2E}
 $$
 
-where $e_{rs}$ is the sum of edge weights between groups $r$ and $s$, $e_{r} = \sum_s  e_{rs}$ and $E$ is the sum of all weights. We further decompose the contribution of each Level-1 block to the modularity by defining the assortativity of a block as:
+where $e_{rs}$ is the sum of edge weights between groups $r$ and $s$, $e_{r} = \sum_s  e_{rs}$ and $E$ is the sum of all weights. Newman modularity quantifies the intuition that genes in the same module should be more connected than across modules by comparing the within-group connections ($e_{rr}$) to the expected value of the connections across all the groups ($\frac{e_{r}^2}{2E}$). The higher the difference between correlations within- and between-groups, the higher the value of $M$.
+
+We further decompose the contribution of each Level-1 block to the modularity by defining the assortativity of a block as:
 
 $$
 q_r = \frac{B}{2E} \left ( e_{rr} - \frac{e_{r}^2}{2E} \right )
