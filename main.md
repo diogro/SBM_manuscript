@@ -1,5 +1,5 @@
 ---
-title: Revisiting modularity of gene co-expression networks using the Stochastic Block Model
+title: Reassessing the modularity of gene co-expression networks using the Stochastic Block Model
 author:
   - Diogo Melo:
       institute: lsi
