@@ -208,17 +208,18 @@ modular, and that the origin of these modular patterns lie in functional
 constraints.
 Traits in an organism need to have some level of integration, of
 interdependence, to form a functioning individual.
-This necessary interaction between parts poses a problem for
-understanding the evolution of complex traits, as inter-dependencies are
-expected to lead to important evolutionary restrictions [@Orr2000-gn].
+This necessary interaction between parts poses a
+problem for understanding the evolution of complex traits, as
+inter-dependencies are expected to lead to important evolutionary restrictions
+[@Orr2000-gn].
 Modularity provides a simple solution to this problem as it allows organisms to
 maintain their function unchanged by coordinating simultaneous evolutionary
 changes in all related traits while keeping unrelated traits undisturbed
 [@Ancel2000-vt; @Cheverud1996-jw; @Wagner2011-zx; @Wagner1996-ui].
-This general conceptual usefulness of modularity has informed much of our
-thinking on how complex traits should be structured, producing a large
-literature dedicated to finding modules and testing for their existence.
-A large part of our thinking about modularity developed in the context of
+The conceptual usefulness of modularity has informed much of our thinking on
+how complex traits should be structured, producing a large literature dedicated
+to finding modules and testing for their existence [@Esteve-Altava2017-ws].
+A large part of the literature on modularity developed in the context of
 morphological traits, and morphological traits being organized into modules can
 be interpreted as a consequence of the very concrete structural and
 developmental constraints that lead to the formation and allow proper
@@ -226,40 +227,60 @@ functioning of these individual body elements [@Shirai2010-co;
 @Marcucio2011-nq], even if local integrating processes are not always
 detectable in the final trait covariance structure [@Hallgrimsson2009-yd;
 @Mitteroecker2007-xq].
-These constraints are easy to visualize, morphological traits like
-bones and muscle have to fit together, and individuals in which perturbations
-are large enough to disrupt this are not viable. The result is a modularity
-pattern that is kept stable by these structural constraints.
-No such clear structural constraints exists on gene expression, and the
-interaction between groups of genes can happen through much more dynamic and
-varied mechanisms. While we might expect related genes to be co-expressed,
-non-linear phenomena can lead to a complete decoupling of the expression levels
-of co-expressed genes. For example, the effect of gene A on gene B could have a
-saturation point after which increasing expression gene A no longer leads to
-higher levels of gene B, and no correlation is detected in this regime, even if
-the genes are co-expressed.
+These constraints are easy to visualize, as morphological traits like bones and
+muscle have to fit together in order to function, and individuals in which
+perturbations are large enough to disrupt these couplings are not viable.
+The result is a modularity pattern that is kept stable by these structural and
+functional constraints [@Cheverud2004-ov; @Cheverud1984-mi; @Porto2009-pi].
+However, no such clear structural and physical constraints exists on gene
+expression, and the interaction between groups of genes can happen through much
+more dynamic and varied mechanisms.
+While we might expect related genes to be co-expressed and therefore highly
+correlated, non-linear phenomena can lead to a complete decoupling of the
+expression levels of co-expressed genes.
+For example, the effect of gene A on gene B could have a saturation point after
+which increasing expression gene A no longer leads to higher levels of gene B,
+and no correlation is detected in this regime, even if the genes are
+co-expressed.
+The marked difference in the level of modularity across the two tissues in our
+samples illustrate just how variable modularity can be, even within the same
+population.
 Furthermore, modularity is not a necessary feature of biological organization
 [even in the case of evolvability, see @Pavlicev2011-xm; @Roseman2009-kk], and
-only searching for modularity can blind us to alternative organizations.
+only searching for modularity can blind us to alternative organizations, as we
+have shown.
 Indeed, the profound interconnectedness of gene regulation networks has led to
 a small revolution in our understanding of disease and complex traits
 [@Boyle2017-re].
 
+The very high dimensionality of gene co-expression networks also allow for
+genes to be similar in ways that do not lead to high correlations. For example,
+two genes might be connected to the same genes in different modules, but not
+among themselves. This similarity would likely be missed by modularity
+maximization, because these genes would not form a classic assortative
+unit---meanwhile, the SBM would correctly identify these genes connecting two
+modules as being similar due to their shared connectivity pattern. Having
+accesses to these types of blocks, that are real but non-assortative, could
+bring new insight into the organization of gene co-expression networks. 
+
 One aspect we did not explore here is the estimation of the gene co-expression
-network itself, before any attempt at finding communities. Both methods used
-weighted networks, fully connected ones for the WGCNA and MMC pipelines (as per
+network itself, before any attempt at finding communities. Both types of methods used
+weighted networks: fully connected ones for the WGCNA and MMC pipelines (as per
 these method's suggested workflow) and a sparser network for the SBM model
-fitting, due to computational constraints. Estimating these weights is an error
-prone process, as we are estimating many more weights than we have measured
-individuals, leading to potentially poor estimates. While the procedure we used
-here is common place, there are more principled ways of building co-expression
-networks, and this is an aspect of the usual transcriptomics workflow that
-could potentially see massive improvements. Methods like the graphical lasso
-have been used in this context, and the expectation is that these inferred
-networks should provide a much higher signal to noise ratio with regards to
-gene associations. Additionally, it is possible to combine community detection
-via the SBM with network inference, simultaneously using information about
-community structure to inform the network inference and vice-versa.
+fitting, due to computational constraints. Estimating these weights (gene
+expression correlations) is an error prone process, as we are estimating many
+more weights than we have measured individuals, leading to potentially poor
+estimates [@Schafer2005-ld]. While the procedures we used here are common
+place, there are more principled ways of building co-expression networks
+[@Peel2022-bq], and this is an aspect of the usual transcriptomics workflow
+that could potentially see massive improvements in the near future. Methods
+like the graphical lasso have been used in this context [@Lingjaerde2021-fp;
+@Seal2023-qn; @Lyu2018-ac], and the expectation is that, when compared to fully
+connected or thresholded networks, these inferred networks should provide much
+better estimates of gene-gene connections and weights. Additionally, it is
+possible to combine community detection via the SBM with network inference,
+simultaneously using information about community structure to inform the
+network inference and vice-versa [@Peixoto2019-cj].
 
 When compared to other community detection methods, there are several practical
 advantages offered by the SBM. For example, one clear advantage of the SBM
@@ -269,19 +290,20 @@ exponent in the soft-threshold, the method of separating the genes included in
 the hierarchical clustering into the modules. These are free parameters that
 can drastically change the number of genes that are clustered and the number
 and size of modules. While there are some heuristics for making these choices,
-they are largely created ad hock or based on strong assumptions (like the
+they are largely created _ad hock_ or based on strong assumptions (like the
 scale-free nature of the co-expression network). We also lack a principled way
 of comparing the resulting clustering. In contrast, all of the freedom in the
-SBM is restricted to the creation of the network, which discussed above. The
+SBM is restricted to the creation of the network, which we discus above. The
 clustering procedure is completely parameter free, and choices regarding how to
-model the weights between edges can be made by choosing the model with the
-shortest description length [@Peixoto2017-zw]. This a significant advantage for
-applying the SBM in domains where we lack relevant domain expertise.
-Furthermore, the SBM finds a much larger number of modules that are guaranteed
-to be statistically supported, greatly improving the resolution of the
-clustering and allowing for more precise biological interpretation of the
-resulting blocks. The hierarchical nature of the model also allows for more or
-less coarse-graining of the clustering, as illustrated by the signaling-related
+model the weights between edges can be made by selecting the model with the
+shortest description length [@Peixoto2017-zw]. This is a significant advantage
+for applying the SBM in domains where we lack relevant domain expertise and
+can't easily tune the parameters for the other clustering methods. Furthermore,
+the SBM finds a much larger number of modules that are guaranteed to be
+statistically supported, greatly improving the resolution of the clustering and
+allowing for more precise biological interpretation of the resulting blocks.
+The hierarchical nature of the model also allows for more or less
+coarse-graining of the clustering, as illustrated by the signaling-related
 block in @fig:go_map. This combination of smaller and more numerous blocks with
 the hierarchical structure of the nested SBM is especially well suited for
 guilt-by-association analysis, as it allows for the use of contextual
