@@ -197,14 +197,14 @@ based on this assumption, we uncover clusters based on their information
 content about the gene network and ask if the resulting groups are assortative.
 Surprisingly, the answer is not always. We find assortative and non-assortative
 modules and a marked difference in the overall modularity in the co-expression
-networks of two tissues. 
+networks of the two tissues.
 
 Modularity, relative independence between groups of complex traits, is often
-invoked to explain the evolvability of complex phenotypes, and has functioned
+invoked to explain the evolvability of complex phenotypes and has functioned
 as a unifying concept at several levels of organization with great success
 [@Melo2016-yw; @Zelditch2021-ue; @Wagner2007-jt].
 There is no doubt that there are many biological systems that are indeed
-modular, and that the origin of these modular patterns lie in functional
+modular, and that the origin of these modular patterns lies in functional
 constraints.
 Traits in an organism need to have some level of integration, of
 interdependence, to form a functioning individual.
@@ -232,18 +232,18 @@ muscle have to fit together in order to function, and individuals in which
 perturbations are large enough to disrupt these couplings are not viable.
 The result is a modularity pattern that is kept stable by these structural and
 functional constraints [@Cheverud2004-ov; @Cheverud1984-mi; @Porto2009-pi].
-However, no such clear structural and physical constraints exists on gene
+However, no such clear structural and physical constraints exist on gene
 expression, and the interaction between groups of genes can happen through much
 more dynamic and varied mechanisms.
 While we might expect related genes to be co-expressed and therefore highly
 correlated, non-linear phenomena can lead to a complete decoupling of the
 expression levels of co-expressed genes.
 For example, the effect of gene A on gene B could have a saturation point after
-which increasing expression gene A no longer leads to higher levels of gene B,
+which increasing expression of gene A no longer leads to higher levels of gene B,
 and no correlation is detected in this regime, even if the genes are
 co-expressed.
 The marked difference in the level of modularity across the two tissues in our
-samples illustrate just how variable modularity can be, even within the same
+samples illustrates just how variable modularity can be, even within the same
 population.
 Furthermore, modularity is not a necessary feature of biological organization
 [even in the case of evolvability, see @Pavlicev2011-xm; @Roseman2009-kk], and
@@ -253,25 +253,24 @@ Indeed, the profound interconnectedness of gene regulation networks has led to
 a small revolution in our understanding of disease and complex traits
 [@Boyle2017-re].
 
-The very high dimensionality of gene co-expression networks also allow for
+The very high dimensionality of gene co-expression networks also allows for
 genes to be similar in ways that do not lead to high correlations. For example,
 two genes might be connected to the same genes in different modules, but not
 among themselves. This similarity would likely be missed by modularity
-maximization, because these genes would not form a classic assortative
-unit---meanwhile, the SBM would correctly identify these genes connecting two
+maximization because these genes would not form a classic assortative
+unit. Meanwhile, the SBM would correctly identify these genes connecting two
 modules as being similar due to their shared connectivity pattern. Having
-accesses to these types of blocks, that are real but non-assortative, could
+access to these types of blocks, which are real but non-assortative, could
 bring new insight into the organization of gene co-expression networks. 
 
 One aspect we did not explore here is the estimation of the gene co-expression
 network itself, before any attempt at finding communities. Both types of methods used
 weighted networks: fully connected ones for the WGCNA and MMC pipelines (as per
-these method's suggested workflow) and a sparser network for the SBM model
+these methods' suggested workflow) and a sparser network for the SBM model
 fitting, due to computational constraints. Estimating these weights (gene
-expression correlations) is an error prone process, as we are estimating many
+expression correlations) is an error-prone process, as we are estimating many
 more weights than we have measured individuals, leading to potentially poor
-estimates [@Schafer2005-ld]. While the procedures we used here are common
-place, there are more principled ways of building co-expression networks
+estimates [@Schafer2005-ld]. While the procedures we used here are commonplace, there are more principled ways of building co-expression networks
 [@Peel2022-bq], and this is an aspect of the usual transcriptomics workflow
 that could potentially see massive improvements in the near future. Methods
 like the graphical lasso have been used in this context [@Lingjaerde2021-fp;
@@ -286,14 +285,14 @@ When compared to other community detection methods, there are several practical
 advantages offered by the SBM. For example, one clear advantage of the SBM
 framework when compared to WGCNA is the number of free parameters that need to
 be tuned when using WGCNA. The choice of using a hard or soft threshold, the
-exponent in the soft-threshold, the method of separating the genes included in
+exponent in the  threshold, the method of separating the genes included in
 the hierarchical clustering into the modules. These are free parameters that
 can drastically change the number of genes that are clustered and the number
 and size of modules. While there are some heuristics for making these choices,
 they are largely created _ad hock_ or based on strong assumptions (like the
 scale-free nature of the co-expression network). We also lack a principled way
 of comparing the resulting clustering. In contrast, all of the freedom in the
-SBM is restricted to the creation of the network, which we discus above. The
+SBM is restricted to the creation of the network, which we discuss above. The
 clustering procedure is completely parameter free, and choices regarding how to
 model the weights between edges can be made by selecting the model with the
 shortest description length [@Peixoto2017-zw]. This is a significant advantage
