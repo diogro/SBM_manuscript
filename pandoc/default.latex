@@ -459,7 +459,7 @@ $else$
 
     \vspace{0.3cm}
 
-    \normalsize{Submission v1.0 - $date$}
+    \normalsize{Manuscript v1.0 - \today}
 \end{flushleft}
 }
 \makeatother
@@ -507,6 +507,7 @@ $if(linestretch)$
 \setstretch{$linestretch$}
 $endif$
 $if(has-frontmatter)$
+Test.
 \mainmatter
 $endif$
 $body$

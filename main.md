@@ -186,18 +186,18 @@ Some of the most specific enrichments in the SBM are the translation-related blo
 
 Here, we use an alternative method of clustering to show that assortativity
 need not be the main driver of biologically meaningful clustering of complex
-traits. Using the Stochastic Block Model, which clusters genes so as to capture
-as much information on the network of interactions as possible, we find a large
-number of biologically relevant groups that could not be uncovered by methods
-that assume assortative modules. The blocks related to cytoplasmic translation
-illustrate this nicely, with clear biological interpretation and practically no
-assortative modularity. This shifts our view of the structure of the relations
-between traits: instead of assuming the network is modular and clustering genes
-based on this assumption, we uncover clusters based on their information
-content about the gene network and ask if the resulting groups are assortative.
-Surprisingly, the answer is not always. We find assortative and non-assortative
-modules and a marked difference in the overall modularity in the co-expression
-networks of the two tissues.
+traits. Using the Stochastic Block Model, which clusters genes by finding the
+groups that capture as much information on the network of interactions as
+possible, we find a large number of biologically relevant groups that could not
+be uncovered by methods that assume assortative modules. The blocks related to
+cytoplasmic translation illustrate this nicely, with clear biological
+interpretation and practically no assortative modularity. This shifts our view
+of the structure of the relations between traits: instead of assuming the
+network is modular and clustering genes based on this assumption, we uncover
+clusters based on their information content about the gene network and ask if
+the resulting groups are assortative. Surprisingly, the answer is not always.
+We find assortative and non-assortative modules and a marked difference in the
+overall modularity in the co-expression networks of the two tissues.
 
 Modularity, relative independence between groups of complex traits, is often
 invoked to explain the evolvability of complex phenotypes and has functioned
@@ -321,7 +321,7 @@ advancements from network theory, like the SBM, into our toolkit.
 
 \footnotesize
 
-## Supporting information 
+## Supporting information
 
 Supporting information can be found at [https://github.com/diogro/SBM_manuscript](https://github.com/diogro/SBM_manuscript).
 
