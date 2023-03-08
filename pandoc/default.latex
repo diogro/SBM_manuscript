@@ -507,7 +507,6 @@ $if(linestretch)$
 \setstretch{$linestretch$}
 $endif$
 $if(has-frontmatter)$
-Test.
 \mainmatter
 $endif$
 $body$
