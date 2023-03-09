@@ -451,7 +451,7 @@ $else$
 \makeatletter
 \renewcommand{\maketitle}{\setlength{\parindent}{0pt}
 \begin{flushleft}
-    \huge{\textbf{$title$}}
+    \huge{\titlefont \textbf{$title$}}
 
     \vspace{0.8cm}
 
