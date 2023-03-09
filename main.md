@@ -1,5 +1,6 @@
 ---
 title: Reassessing the modularity of gene co-expression networks using the Stochastic Block Model
+version: "1.0"
 author:
   - Diogo Melo:
       institute: lsi
@@ -44,10 +45,10 @@ header-includes:
 - \usepackage{graphicx}
 - \newcommand{\hideFromPandoc}[1]{#1}
 - \hideFromPandoc{ \let\Begin\begin \let\End\end}
-- \newfontfamily\titlefont{Skolar Sans PE}
 link-citations: yes
 mainfont: Skolar PE
 sansfont: Skolar Sans PE
+titlefont: Skolar Sans PE
 mainfontoptions:
 - Numbers=Lowercase
 - Numbers=Proportional
