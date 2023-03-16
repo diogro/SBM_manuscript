@@ -458,22 +458,24 @@ $else$
 \renewcommand{\maketitle}{\setlength{\parindent}{0pt}
 \begin{flushleft}
     \huge{\titlefont \textbf{$title$}}
+    
+    $if(version)$
+      \vspace{0.25cm}
+      \small{Manuscript v$version$ - \today}
+    $endif$
 
-    \vspace{0.8cm}
+    \vspace{0.3cm}
 
     \Large{$author$}
 
     \vspace{0.3cm}
 
-    $if(version)$
-    \normalsize{Manuscript v$version$ - \today}
-    $endif$
 \end{flushleft}
 }
 \makeatother
 \maketitle
 $endif$
-$if(abstract)$
+$if(texabstract)$
 \begin{abstract}
 $abstract$
 \end{abstract}
@@ -518,7 +520,8 @@ $if(has-frontmatter)$
 \mainmatter
 $endif$
 
-\footnotesize
+% Font size for the affiliations:
+\footnotesize 
 $body$
 
 $if(has-frontmatter)$
