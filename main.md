@@ -21,11 +21,11 @@ author:
       orcid: 0000-0001-8729-0511
 institute:
   - lsi:
-      name: Lewis-Sigler Institute for Integrative Genomics, Princeton University
+      name: Lewis-Sigler Institute for Integrative Genomics, Princeton University, Princeton, NJ, USA
   - eeb:
-      name: Department of Ecology and Evolutionary Biology, Princeton University
+      name: Department of Ecology and Evolutionary Biology, Princeton University, Princeton, NJ, USA
   - fml:
-      name: Friedrich Miescher Laboratory, Max Planck Society
+      name: Friedrich Miescher Laboratory of the Max Planck Society, Tübingen, Germany
 output: pdf_document
 geometry:
 - top=20mm
