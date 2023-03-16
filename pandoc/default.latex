@@ -460,11 +460,11 @@ $else$
     \huge{\titlefont \textbf{$title$}}
     
     $if(version)$
-      \vspace{0.25cm}
+      \vspace{0.2cm}
       \small{Manuscript v$version$ - \today}
     $endif$
 
-    \vspace{0.3cm}
+    \vspace{0.2cm}
 
     \Large{$author$}
 
