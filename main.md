@@ -6,13 +6,11 @@ author:
       institute: lsi
       email: damelo@princeton.edu
       orcid: 0000-0002-7603-0092
-      equal_contributor: "yes"
       correspondence: "yes"
   - Luisa F. Pallares:
       institute: fml
-      equal_contributor: "yes"
       orcid: 0000-0001-6547-1901
-  - Julien Ayroles:
+  - Julien F. Ayroles:
       institute:
         - lsi
         - eeb
@@ -191,7 +189,7 @@ Body         65\% (51/78)     95\% (20/21)     100\% (9/9)   100\% (3/3)   100\%
       
 Table: Number of blocks at each level of the SBM hierarchy that show significant GO enrichment at the 5\% FDR level with a minimum of 4 genes in the enriched set.
 
-![Enriched GO categories in a level-3 block in the head (0-0-0), related to neural signaling. Panels show the corresponding level-1 blocks. Bars correspond to the top 8 GO categories, the x-axis shows the number of genes associated with each term. The last panel shows the most similar WGCNA module, which also contains signaling-related genes, but at a lower resolution and fails to cluster the phototransduction genes, which are in WGCNA module 5 (not shown).](figures/000_go_map.png){#fig:go_map}
+![Enriched GO categories in a level-3 block in the head (0-0-0), related to neural signaling. Panels show the corresponding level-1 blocks. Bars correspond to the top 8 GO categories, the x-axis shows the number of genes associated with each term. The last panel shows the most similar WGCNA module, which also contains signaling-related genes, but at a lower resolution and fails to cluster the phototransduction genes, which are in WGCNA module 5 (not shown, but see SI table 2.1).](figures/000_go_map.png){#fig:go_map}
 
 ### Notable individual clusters
 
