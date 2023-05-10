@@ -169,7 +169,7 @@ Using the SBM, in both head and body, we were able to cluster all genes, identif
 
 In contrast with the SBM, WGCNA was able to cluster only 30-40% of the genes. These 2118 genes in the body and 1600 genes in the head were partitioned into 7 modules in both tissues. To assess whether the gene clusters inferred by each algorithm are similar, we compared the results of WGCNA to the SBM blocks at level 3 (@fig:wgcna_compare). We focused on level 3 instead of level 1 (the finest level) because the number of blocks at this level (6 in the head and 9 in the body) are similar to the number of modules in WGCNA (7 modules for both tissues). Overall, the partitions are different, but WGCNA and the SBM do capture some common signals, evidenced by the tendency of Level-3 blocks that share the same Level-4 blocks to be separated into the same modules in WGCNA. For example, Level-3 blocks 0, 2, 5, and 6 in the body are split between modules 3 and 4, and these blocks are all in the same Level-4 block 0, suggesting some similarity that could explain the WGCNA clustering. Blocks 7 and 9 are both fully assigned to module 2. Also in the body, we find a similar pattern for Level-3 blocks 1, 3, and 4, which are mostly split between modules 1 and 2. In the head, Level-3 block 4 is all assigned to modules 1 and 3. Level-3 blocks 1 and 2 are mostly split between modules 1 and 3, and both are in Level-4 block 2. Importantly, level 3 is an intermediate level in the clustering hierarchy resolved by the SBM, and at finer levels (i.e., level 2 and 1) the gene groups are smaller and functionally more specific.
 
-![Comparison of the clustering in WGCNA and levels 3 and 4 of the SBM hierarchy for the gene expressions in the body (left) and the head (right). Each point corresponds to a gene. The x-axis corresponds to the Level-3 SBM blocks, and the y-axis the WGCNA modules. Colors correspond to the (coarser) level 4 of the SBM.](figures/WGCNA_comparison.pdf){#fig:wgcna_compare}
+![Comparison of the clustering in WGCNA and levels 3 and 4 of the SBM hierarchy for the gene expressions in the body (left) and the head (right). Each point corresponds to a gene. The x-axis corresponds to the Level-3 SBM blocks, and the y-axis the WGCNA modules. Colors correspond to the (coarser) level 4 of the SBM.](figures/WGCNA_comparison.png){#fig:wgcna_compare}
 
 ## Modularity and assortativity
 
@@ -201,7 +201,7 @@ Some of the most specific enrichments in the SBM are the translation-related blo
 
 # Discussion
 
-Here we have used the Stochastic Block Model, a clustering method that does not rely on modularity maximization, to explore the organization of gene co-expression networks in female _Drosophila melanogaster_. The SBM, in contrast with other methods explored here, clusters genes by finding the groups that capture as much information on the network of interactions as possible, and was able to (i) cluster all genes into blocks, (ii) identify blocks with both, high resolution (few genes per block) and high functional content (significant GO associations), and (iii) identify blocks that are assortative (higher within- than between-block correlation) as well as non-assortative.
+Here we have used the Stochastic Block Model to explore the organization of gene co-expression networks in female _Drosophila melanogaster_. The SBM, in contrast with other methods explored here, clusters genes by finding the groups that capture as much information on the network of interactions as possible, and was able to (i) cluster all genes into blocks, (ii) identify blocks with both, high resolution (few genes per block) and high functional content (significant GO associations), and (iii) identify blocks that are assortative (higher within- than between-block correlation) as well as non-assortative.
 This last point exemplifies the novelty of the SBM approach.
 Using the SBM implies a shift on how we explore co-expression networks: instead of assuming the network is modular and clustering genes based on this assumption, we uncover clusters based on their information content and ask if the resulting groups are modular.
 Surprisingly, the answer is not always.
@@ -270,6 +270,27 @@ Will this emerge as a general feature of transcriptomes?
 ## Supporting information
 
 Supporting information can be found at [https://github.com/diogro/SBM_manuscript](https://github.com/diogro/SBM_manuscript).
+
+# Author Contributions
+
+**Conceptualization**: D.M., L.P., and J.A.
+**Data Curation**: L.P.
+**Formal Analysis**: D.M.
+**Funding Acquisition**: D.M., L.P., and J.A.
+**Investigation**: D.M., L.P., and J.A.
+**Methodology**: D.M., and L.P.
+**Project Administration**: J.A.
+**Resources**: J.A.
+**Software**: D.M., and L.P.
+**Supervision**: J.A.
+**Validation**: D.M.
+**Visualization**: D.M.
+**Writing – Original Draft Preparation**: D.M.
+**Writing – Review & Editing**:	D.M., L.P., and J.A.
+
+# Acknowledgments
+
+We thank all members of the Ayroles lab for their support. We thank Monique Simon and Cara Weisman for their thoughtful comments. D.M. is funded by a fellowship from the Princeton Presidential Postdoctoral Research Fellows Program. L.P. was funded by a Long-Term Postdoctoral Fellowship from the Human Frontiers Science Program and is funded by the Max Planck Society. J.A. is funded by grants from the NIH: National Institute of Environmental Health Sciences (R01-ES029929) and National Institute of General Medical Sciences (NIGMS) (R35GM124881). This study was supported in part by the Lewis-Sigler Institute for Integrative Genomics at Princeton University. We also acknowledge that the work reported in this paper was substantially performed using the Princeton Research Computing resources at Princeton University which is a consortium of groups led by the Princeton Institute for Computational Science and Engineering (PICSciE) and Office of Information Technology's Research Computing. A.L. is supported by the Canadian Institute for Advanced Research Global Scholars Program, the Searle Scholars Program, and through the NIH/NIGMS (R35GM147267).
 
 # References
 
