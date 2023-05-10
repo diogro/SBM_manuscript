@@ -71,7 +71,7 @@ $\hrulefill$
 # Introduction
 \linenumbers
 \normalsize 
-<!-- \doublespacing -->
+\onehalfspacing
 
 Gene co-expression networks inform our understanding of cell and organismal function by encoding associations between genes. Associations between expression levels can indicate common function, and the number of connections can point to central or regulatory genes [@Van_Dam2018-nf]. Due to the large dimensionality of gene expression data, often composed of several thousands of gene expression measures, a major tool in the analysis of co-expression is gene clustering: separating the genes into related groups, which can then be explored separately [@Dhaeseleer2005-jv]. This drastically reduces the number of genes we need to consider at the same time and allows for the identification of hubs or centrally connected genes that can be used to inform further experimental validation [@Langfelder2008-qa; @Imenez_Silva2017-ic]. 
 
@@ -117,9 +117,9 @@ $$
 P(b|A) \propto \exp(-\Sigma)
 $$
 
-Where $\Sigma = -log[P(A|\theta, b)] - log[P(\theta,b)]$ is called the description length of the gene network $A$, and has an information-theoretic interpretation, being the amount of information required to encode the network given $\theta$ and $b$. So, finding the partition that maximizes the posterior probability is the same as minimizing the description length, or, in other words, the chosen partition $b$ is the one that allows us to describe the network using the least information. 
+Where $\Sigma = -\log[P(A|\theta, b)] - \log[P(\theta,b)]$ is called the description length of the gene network $A$, and has an information-theoretic interpretation, being the amount of information required to encode the network given $\theta$ and $b$. So, finding the partition that maximizes the posterior probability is the same as minimizing the description length, or, in other words, the chosen partition $b$ is the one that allows us to describe the network using the least information. 
 
-The two terms in $\Sigma$ also allow us to understand why this method offers intrinsic protection against overfitting. The first term $log[P(A|\theta, b)]$ corresponds to the log-likelihood of the observed network. Increasing the number of blocks allows this likelihood to increase as the degrees of freedom of the model increase. But, the second term, $log[P(\theta,b)]$ functions as a penalty that increases for complex models with many blocks, and the description length cannot decrease for overly complex models that have more blocks than warranted by the data. So, the selected partition with the minimum description length will necessarily be the simplest partition with similar explanatory power, avoiding overfitting and fully using the available statistical evidence. For example, the SBM would not detect modules that appear in random networks due to statistical fluctuations, in contrast to modularity maximization, which finds spurious modules in random networks [@Guimera2004-jq; @Zhang2020-up]. We can also use the description length as a principled method for comparing models that simultaneously considers fit to data and model complexity.
+The two terms in $\Sigma$ also allow us to understand why this method offers intrinsic protection against overfitting. The first term $\log[P(A|\theta, b)]$ corresponds to the log-likelihood of the observed network. Increasing the number of blocks allows this likelihood to increase as the degrees of freedom of the model increase. But, the second term, $\log[P(\theta,b)]$ functions as a penalty that increases for complex models with many blocks, and the description length cannot decrease for overly complex models that have more blocks than warranted by the data. So, the selected partition with the minimum description length will necessarily be the simplest partition with similar explanatory power, avoiding overfitting and fully using the available statistical evidence. For example, the SBM would not detect modules that appear in random networks due to statistical fluctuations, in contrast to modularity maximization, which finds spurious modules in random networks [@Guimera2004-jq; @Zhang2020-up]. We can also use the description length as a principled method for comparing models that simultaneously considers fit to data and model complexity.
 
 ### Weighted SBM
 
@@ -127,7 +127,7 @@ The weights on the edges can be modeled in the SBM using different distributions
 
 ### Nested SBM
 
-The nested SBM uses a series of non-parametric hierarchical priors that greatly increase the resolution of block partition. This nested structure allows for the identification of more and smaller blocks that are statistically supported than other clustering methods [@Peixoto2017-zw]. This is achieved by treating the gene block partition as the nodes in a nested series of networks, which are then clustered using the same method. So, the genes are clustered in blocks, and these blocks are also clustered in higher-level blocks, and so on, as required to minimize the description length of the gene network (see diagram in @fig:SBM_diagram). The model estimates the number of levels in the hierarchy and the number of blocks in each level. Since the model is generative, we can use posterior samples of the partitions to quantify the uncertainty in any quantity estimated by the model, like the number of levels in the hierarchy, or the number of blocks at each level. For details on the implementation of the SBM, see [@Peixoto2017-zw] and [@Peixoto2018-or]. All SBM were fitted using the graph-tool python library [@peixoto_graph-tool_2014]. 
+The nested SBM uses a series of non-parametric hierarchical priors that greatly increase the resolution of block partition. This nested structure allows for the identification of more and smaller blocks that are statistically supported than other clustering methods [@Peixoto2017-zw]. This is achieved by treating the gene block partition as the nodes in a nested series of networks, which are then clustered using the same method. So, the genes are clustered in blocks, and these blocks are also clustered in higher-level blocks, and so on, as required to minimize the description length of the gene network (see diagram in @fig:SBM_diagram). The model estimates the number of levels in the hierarchy and the number of blocks in each level. Since the model is generative, we can use posterior samples of the partitions to quantify the uncertainty in any quantity estimated by the model, like the number of levels in the hierarchy, or the number of blocks at each level. For details on the implementation of the SBM, see @Peixoto2017-zw and @Peixoto2018-or. All SBM were fitted using the graph-tool python library [@peixoto_graph-tool_2014]. 
 
 ![Schematic representation of the clustering in the SBM. Genes are clustered into level-1 blocks, level-1 blocks are clustered into level-2 blocks, and so on. A. Circular representation of the clustering we use in the following figures. Block names are constructed by following the hierarchy, starting at level 1. So in this example, the level-1 block 8 can also be referred to as 8-4-1. B. A tree-like representation that highlights the hierarchy in the nested SBM. Each level-2 block is composed of all the genes in its child level-1 blocks, each level-3 block is composed of all the genes in its child level-2 blocks, and so on.](figures/SBM_diagram.png){#fig:SBM_diagram height=10cm}
 
@@ -265,8 +265,6 @@ More studies using methods that don’t rely on modularity maximization will be 
 For example, here we find that, despite the differences in gene clusters between body and head, the non-modular blocks tend to be associated with cytoplasmic translation.
 Will this emerge as a general feature of transcriptomes? 
 
-\footnotesize
-
 ## Supporting information
 
 Supporting information can be found at [https://github.com/diogro/SBM_manuscript](https://github.com/diogro/SBM_manuscript).
@@ -293,8 +291,3 @@ Supporting information can be found at [https://github.com/diogro/SBM_manuscript
 We thank all members of the Ayroles lab for their support. We thank Monique Simon and Cara Weisman for their thoughtful comments. D.M. is funded by a fellowship from the Princeton Presidential Postdoctoral Research Fellows Program. L.P. was funded by a Long-Term Postdoctoral Fellowship from the Human Frontiers Science Program and is funded by the Max Planck Society. J.A. is funded by grants from the NIH: National Institute of Environmental Health Sciences (R01-ES029929) and National Institute of General Medical Sciences (NIGMS) (R35GM124881). This study was supported in part by the Lewis-Sigler Institute for Integrative Genomics at Princeton University. We also acknowledge that the work reported in this paper was substantially performed using the Princeton Research Computing resources at Princeton University which is a consortium of groups led by the Princeton Institute for Computational Science and Engineering (PICSciE) and Office of Information Technology's Research Computing. 
 
 # References
-
-
-
-
-
