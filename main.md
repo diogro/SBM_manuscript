@@ -25,12 +25,15 @@ institute:
   - fml:
       name: Friedrich Miescher Laboratory of the Max Planck Society, Tübingen, Germany
 output: pdf_document
+indent: false
 geometry:
 - top=20mm
 - left=25mm
 - right=25mm
 - bottom=20mm
 header-includes:
+- \usepackage{indentfirst}
+- \setlength\parindent{24pt}
 - \usepackage[left]{lineno}
 - \modulolinenumbers[5]
 - \usepackage{multicol}
@@ -54,24 +57,27 @@ mainfontoptions:
 csl: ./pandoc/apa.csl
 bibliography: ./references.bib
 keywords: [modularity, gene co-expression, WGCNA, MMC, clustering, RNA-seq, GO enrichment]
-abstract: Finding communities in gene co-expression networks is a common first step toward extracting biological insight from such complex datasets. Most community detection algorithms expect genes to be organized into assortative modules, that is, groups of genes that are more associated with each other than with genes in other groups. While it is reasonable to expect that these modules exist, using methods that assume they exist a priori is risky, as it guarantees that alternative organizations of gene interactions will be ignored. Here, we explore the use of a recently developed community detection method, the weighted degree corrected stochastic block model (SBM), that does not assume that assortative modules exist. Instead, the SBM attempts to efficiently use all information contained in the co-expression graph to separate the genes into hierarchically organized blocks of genes. Using RNA-seq gene expression data measured in two tissues derived from an outbred population of Drosophila melanogaster, we show that the SBM is able to find ten times more groups than competing methods, several of which don’t show the expected pattern of assortativity. Furthermore, a majority of these groups, assortative and non-assortative, show remarkably specific gene ontology enrichment, suggesting a clear biological interpretation of the resulting communities. Surprisingly, there is no relation between assortative modularity and gene ontology enrichment. These results show that the transcriptome is structured in more complex ways than traditionally thought and that assuming assortativity is the main driver of co-expression structure can prevent us from finding biologically meaningful communities.
+abstract: "Finding communities in gene co-expression networks is a common first step toward extracting biological insight from such complex datasets. Most community detection algorithms expect genes to be organized into assortative modules, that is, groups of genes that are more associated with each other than with genes in other groups. While it is reasonable to expect that these modules exist, using methods that assume they exist a priori is risky, as it guarantees that alternative organizations of gene interactions will be ignored. Here, we ask the question: can we find meaningful communities without imposing a modular organization on gene co-expression networks, and how modular are these communities? For this, we use of a recently developed community detection method, the weighted degree corrected stochastic block model (SBM), that does not assume that assortative modules exist. Instead, the SBM attempts to efficiently use all information contained in the co-expression graph to separate the genes into hierarchically organized blocks of genes. Using RNA-seq gene expression data measured in two tissues derived from an outbred population of Drosophila melanogaster, we show that (a) the SBM is able to find ten times as many groups as competing methods, that (b) several of those gene groups are not modular, and that (c) the functional enrichment for non-modular groups is as strong as for modular communities. These results show that the transcriptome is structured in more complex ways than traditionally thought and that we should revisit the long-standing assumption that modularity is the main driver of the structuring of gene co-expression networks."
 ---
 
 \vspace{9pt}
 \begin{abstract}
 
-Finding communities in gene co-expression networks is a common first step toward extracting biological insight from such complex datasets. Most community detection algorithms expect genes to be organized into assortative modules, that is, groups of genes that are more associated with each other than with genes in other groups. While it is reasonable to expect that these modules exist, using methods that assume they exist a priori is risky, as it guarantees that alternative organizations of gene interactions will be ignored. Here, we ask the question: can we find meaningful communities without imposing a modular organization on gene co-expression networks, and how modular are these communities? For this, we use of a recently developed community detection method, the weighted degree corrected stochastic block model (SBM), that does not assume that assortative modules exist. Instead, the SBM attempts to efficiently use all information contained in the co-expression graph to separate the genes into hierarchically organized blocks of genes. Using RNA-seq gene expression data measured in two tissues derived from an outbred population of Drosophila melanogaster, we show that (a) the SBM is able to find ten times as many groups as competing methods, that (b) several of those gene groups are not modular, and that (c) the functional enrichment for non-modular groups is as strong as for modular communities. These results show that the transcriptome is structured in more complex ways than traditionally thought and that we should revisit the long-standing assumption that modularity is the main driver of the structuring of gene co-expression networks.
+Finding communities in gene co-expression networks is a common first step toward extracting biological insight from such complex datasets. Most community detection algorithms expect genes to be organized into assortative modules, that is, groups of genes that are more associated with each other than with genes in other groups. While it is reasonable to expect that these modules exist, using methods that assume they exist a priori is risky, as it guarantees that alternative organizations of gene interactions will be ignored. Here, we ask the question: can we find meaningful communities without imposing a modular organization on gene co-expression networks, and how modular are these communities? For this, we use a recently developed community detection method, the weighted degree corrected stochastic block model (SBM), that does not assume that assortative modules exist. Instead, the SBM attempts to efficiently use all information contained in the co-expression network to separate the genes into hierarchically organized blocks of genes. Using RNA-seq gene expression data measured in two tissues derived from an outbred population of Drosophila melanogaster, we show that (a) the SBM is able to find ten times as many groups as competing methods, that (b) several of those gene groups are not modular, and that (c) the functional enrichment for non-modular groups is as strong as for modular communities. These results show that the transcriptome is structured in more complex ways than traditionally thought and that we should revisit the long-standing assumption that modularity is the main driver of the structuring of gene co-expression networks.
 
 \noindent
 $\hrulefill$
 
 \end{abstract}
 
-
-# Introduction
 \linenumbers
 \normalsize 
 \onehalfspacing
+
+
+# Introduction
+
+::: columns
 
 Gene co-expression networks inform our understanding of cell and organismal function by encoding associations between genes. Associations between expression levels can indicate common function, and the number of connections can point to central or regulatory genes [@Van_Dam2018-nf]. Due to the large dimensionality of gene expression data, often composed of several thousands of gene expression measures, a major tool in the analysis of co-expression is gene clustering: separating the genes into related groups, which can then be explored separately [@Dhaeseleer2005-jv]. This drastically reduces the number of genes we need to consider at the same time and allows for the identification of hubs or centrally connected genes that can be used to inform further experimental validation [@Langfelder2008-qa; @Imenez_Silva2017-ic]. 
 
@@ -80,7 +86,6 @@ The question is, given a co-expression network, how should we cluster the genes?
 Clustering genes in tightly correlated modules aligns with the intuition that groups of genes performing similar functions should be highly correlated. However, imposing assortativity will necessarily ignore alternative organizations, if they exist, and could prevent us from fully understanding of how transcriptional networks are organized. To avoid this problem, we use a more general measure of similarity that allows us to find meaningful gene groups that are not necessarily assortative but still have clear biological interpretation. This measure is implemented in the weighted nested degree corrected stochastic block model (wnDC-SBM, or SBM for brevity) [@Peixoto2017-zw; @Peixoto2018-or], which has shown promising results in similar applications (see @Baum2019-ty and @Morelli2021-ge). The SBM is different from other clustering methods in that it does not attempt to find assortative modules (i.e., modules with higher within- than between-module correlation). Instead, any information contained in the gene co-expression network can potentially be used to inform the clustering. To be sure, the SBM can capture an assortative modular pattern if it is present, but it is general enough to also capture other network organizations [@Zhang2020-up]. Furthermore, even if, in the context of the SBM, assortativity is not the main driver of gene partitioning, it can still be used to interpret the clusters we obtain. By measuring the modularity of the identified clusters we can compare networks with respect to their modularity without the problem of comparing a measure that was maximized in order to find the clusters in the first place. This opens the possibility of an unbiased comparison of the degree of modularity in different transcriptional networks (e.g., different cell types, tissues, species, etc), which is a question that remained unexplored so far.
 
 Here, using a multi-tissue RNAseq dataset from Drosophila melanogaster, we show first, that the SBM, a model with no free parameters, can find many more gene clusters than competing methods. Second, that such gene clusters are biologically meaningful as revealed by highly specific gene ontology enrichment. Third, that biological meaning is not restricted to assortative modules as traditionally thought but extends to the non-assortative parts of the transcriptome. Our results highlight the importance of using clustering algorithms that don’t rely on assortativity metrics to explore the structure of transcriptomes in a comprehensive and unbiased manner.
-
 
 # Methods
 
@@ -99,7 +104,7 @@ Each method uses different edge weights for the network graph. Both WGCNA and MM
 
 ## Stochastic Block Model
 
-The Weighted Nested Degree Corrected Stochastic Block Model [@Karrer2011-vp; @Peixoto2017-zw] is a Bayesian generative model that attempts to find the partition with the highest posterior probability given the observed network and edge weights. Broadly speaking, this is achieved by dividing the network into groups of genes, called blocks, and modeling the weight and existence of a link between two genes in a network solely on their belonging to a particular block. So, genes with similar patterns of connections tend to be clustered in the same block. The degree correction refers to a modification of the standard Stochastic Block Model that allows genes with different connectivity to be clustered in the same block [see @Peixoto2017-zw for details].
+The Weighted Nested Degree Corrected Stochastic Block Model [@Karrer2011-vp; @Peixoto2017-zw] is a Bayesian generative model that attempts to find the partition with the highest posterior probability given the observed network and edge weights. Broadly speaking, this is achieved by dividing the network into groups of genes, called blocks, and modeling the weight and existence of a link between two genes in a network solely on their belonging to a particular block. So, genes with similar patterns of connections tend to be clustered in the same block. The degree correction refers to a modification of the standard Stochastic Block Model that allows genes with different degrees to be clustered in the same block [see @Peixoto2017-zw for details].
 
 If $b$ is a particular partition of the genes in the weighted gene network $A$, we write a model that generates $A$ with probability given by $P(A| b, \theta)$, where $\theta$ stands in for any extra parameter we need besides the group partition $b$. With this model, we can write the posterior probability of the block partition $b$ given the observed network:
 
@@ -127,9 +132,11 @@ The weights on the edges can be modeled in the SBM using different distributions
 
 ### Nested SBM
 
-The nested SBM uses a series of non-parametric hierarchical priors that greatly increase the resolution of block partition. This nested structure allows for the identification of more and smaller blocks that are statistically supported than other clustering methods [@Peixoto2017-zw]. This is achieved by treating the gene block partition as the nodes in a nested series of networks, which are then clustered using the same method. So, the genes are clustered in blocks, and these blocks are also clustered in higher-level blocks, and so on, as required to minimize the description length of the gene network (see diagram in @fig:SBM_diagram). The model estimates the number of levels in the hierarchy and the number of blocks in each level. Since the model is generative, we can use posterior samples of the partitions to quantify the uncertainty in any quantity estimated by the model, like the number of levels in the hierarchy, or the number of blocks at each level. For details on the implementation of the SBM, see @Peixoto2017-zw and @Peixoto2018-or. All SBM were fitted using the graph-tool python library [@peixoto_graph-tool_2014]. 
+The nested SBM uses a series of non-parametric hierarchical priors that greatly increase the resolution of detected blocks. This nested structure allows for the identification of more and smaller blocks that are statistically supported than other clustering methods [@Peixoto2017-zw]. This is achieved by treating the gene block partition as the nodes in a nested series of networks, which are then clustered using the same method. So, the genes are clustered in blocks, and these blocks are also clustered in higher-level blocks, and so on, as required to minimize the description length of the gene network (see diagram in @fig:SBM_diagram). The model estimates the number of levels in the hierarchy and the number of blocks in each level. Since the model is generative, we can use posterior samples of the partitions to quantify the uncertainty in any quantity estimated by the model, like the number of levels in the hierarchy, or the number of blocks at each level. For details on the implementation of the SBM, see @Peixoto2017-zw and @Peixoto2018-or. All SBM were fitted using the graph-tool python library [@peixoto_graph-tool_2014]. 
 
+::::: column-span
 ![Schematic representation of the clustering in the SBM. Genes are clustered into level-1 blocks, level-1 blocks are clustered into level-2 blocks, and so on. A. Circular representation of the clustering we use in the following figures. Block names are constructed by following the hierarchy, starting at level 1. So in this example, the level-1 block 8 can also be referred to as 8-4-1. B. A tree-like representation that highlights the hierarchy in the nested SBM. Each level-2 block is composed of all the genes in its child level-1 blocks, each level-3 block is composed of all the genes in its child level-2 blocks, and so on.](figures/SBM_diagram.png){#fig:SBM_diagram height=10cm}
+:::::
 
 ### Modularity and Assortativity
 
@@ -157,6 +164,16 @@ We use WGCNA to cluster the genes into modules using the topological overlap mea
 
 We assess the biological relevance of the clustering obtained by each method by comparing their gene ontology (GO) enrichment. We filter enrichment using a Benjamini-Hochberg FDR rate of 5\%, with a minimum of 4 genes in the enriched set. All gene ontology analyses were done using the clusterProfiler R package v4.2.2 [@Wu2021-db] and the Org.Dm.eg.db database package v3.15 [@godb].
 
+::::: column-span
+  Tissue     Level 1          Level 2           Level 3        Level 4     Level 5
+--------    --------------   ---------------  ------------- ------------- -------------
+Head         65\% (53/82)     100\% (21/21)    100\% (6/6)   100\% (3/3)   100\% (2/2)
+Body         65\% (51/78)     95\% (20/21)     100\% (9/9)   100\% (3/3)   100\% (2/2)
+      
+Table: Number of blocks at each level of the SBM hierarchy that show significant GO enrichment at the 5\% FDR level with a minimum of 4 genes in the enriched set.
+:::::
+
+
 # Results
 
 ## Gene clustering
@@ -165,43 +182,47 @@ To assess the consequences of assuming that communities in transcriptional netwo
 
 Using the SBM, in both head and body, we were able to cluster all genes, identifying a nested partition with 5 levels (@fig:Emats). We obtain 2 blocks for both tissues at level 5 (the coarsest); 3 blocks for both tissues at level 4; 6 block for the head and 9 blocks for the body in level 3; 21 blocks for both tissues at level 2; and, finally, 82 blocks for the head and 78 blocks for the body at level 1. In what follows, when discussing specific SBM blocks, we either explicitly define which level of the nested hierarchy we are referring to or give the full path to a given block. For example, level-1 block 12 can also be referred to as 12-7-2-2-1 (see @fig:SBM_diagram for an illustration on how to interpret these labels).
 
-![Matrix and graph representations of the SBM clustering. A and B: SBM Level-1 blocks are colored by the number of edges within and between blocks. Gray squares represent pairs of unconnected blocks. The upper levels of the nested hierarchy are shown by the red lines. C and D: A full representation of the fitted block model. Genes are shown at the perimeter, colored by their level 2 blocks. The internal graph shows the hierarchical structure of the fitted SBM. Numbers in blue circles correspond to the level-2 block. Arrows between level-1 blocks and genes are omitted, unlike fig. 1. A subsample of 30.000 edges is shown connecting the genes, and edges are colored according to their weights, with more positive weights plotted on top. External labels refer to a non-exhaustive subset of level-2 blocks with clear biological functions inferred from interpreting GO enrichment. Level-2 block 8 in the body, with the label highlighted in red, is the only level-2 block with no GO enrichment.](figures/SBM_Ematrix.png){#fig:Emats}
-
 In contrast with the SBM, WGCNA was able to cluster only 30-40% of the genes. These 2118 genes in the body and 1600 genes in the head were partitioned into 7 modules in both tissues. To assess whether the gene clusters inferred by each algorithm are similar, we compared the results of WGCNA to the SBM blocks at level 3 (@fig:wgcna_compare). We focused on level 3 instead of level 1 (the finest level) because the number of blocks at this level (6 in the head and 9 in the body) are similar to the number of modules in WGCNA (7 modules for both tissues). Overall, the partitions are different, but WGCNA and the SBM do capture some common signals, evidenced by the tendency of Level-3 blocks that share the same Level-4 blocks to be separated into the same modules in WGCNA. For example, Level-3 blocks 0, 2, 5, and 6 in the body are split between modules 3 and 4, and these blocks are all in the same Level-4 block 0, suggesting some similarity that could explain the WGCNA clustering. Blocks 7 and 9 are both fully assigned to module 2. Also in the body, we find a similar pattern for Level-3 blocks 1, 3, and 4, which are mostly split between modules 1 and 2. In the head, Level-3 block 4 is all assigned to modules 1 and 3. Level-3 blocks 1 and 2 are mostly split between modules 1 and 3, and both are in Level-4 block 2. Importantly, level 3 is an intermediate level in the clustering hierarchy resolved by the SBM, and at finer levels (i.e., level 2 and 1) the gene groups are smaller and functionally more specific.
 
+::::: column-span
+![Matrix and graph representations of the SBM clustering. A and B: SBM Level-1 blocks are colored by the number of edges within and between blocks. Gray squares represent pairs of unconnected blocks. The upper levels of the nested hierarchy are shown by the red lines. C and D: A full representation of the fitted block model. Genes are shown at the perimeter, colored by their level 2 blocks. The internal graph shows the hierarchical structure of the fitted SBM. Numbers in blue circles correspond to the level-2 block. Arrows between level-1 blocks and genes are omitted, unlike fig. 1. A subsample of 30.000 edges is shown connecting the genes, and edges are colored according to their weights, with more positive weights plotted on top. External labels refer to a non-exhaustive subset of level-2 blocks with clear biological functions inferred from interpreting GO enrichment. Level-2 block 8 in the body, with the label highlighted in red, is the only level-2 block with no GO enrichment.](figures/SBM_Ematrix.png){#fig:Emats}
+:::::
+
+::::: column-span
 ![Comparison of the clustering in WGCNA and levels 3 and 4 of the SBM hierarchy for the gene expressions in the body (left) and the head (right). Each point corresponds to a gene. The x-axis corresponds to the Level-3 SBM blocks, and the y-axis the WGCNA modules. Colors correspond to the (coarser) level 4 of the SBM.](figures/WGCNA_comparison.png){#fig:wgcna_compare}
+:::::
 
 ## Modularity and assortativity
 
 Because the SBM does not use modularity maximization to find communities, we were able to use the resulting clustering to measure, in an unbiased manner, the assortativity of individual blocks and the overall degree of modularity of the transcriptional networks in the head and the body. We find that modularity and assortativity are markedly lower in the body (@fig:modularity). Several blocks in the body have negative assortativity (being more connected across blocks than within), and the maximum value of modularity is 0.035 at level 4 of the nested hierarchy. Even so, several blocks show GO enrichment throughout the distribution of assortativity. In the head, overall modularity is higher, with a peak at 0.14 in level 3. This is still a relatively low value and illustrates how assuming the gene network should be modular can prevent us from finding an informative clustering. All but 5 blocks in the head show positive assortativity, and again GO enrichment is present throughout the assortativity range (@fig:modularity).
 
+::::: column-span
 ![Assortativity measured in the SBM level-1 blocks and Newman Modularity (average assortativity) at each level of the SBM hierarchy (inset). GO enriched blocks are shown in yellow and appear throughout the distribution of assortativity. Modularity is much higher in the head, and it peaks at level 3, dropping in upper levels. Body has a much higher number of non-assortative blocks and lower modularity at all levels. Modularity peaks at level 4 in the body and drops strongly at level 5. Interestingly, the 4 most assortative blocks in the body do not show significant GO enrichment.](figures/assortativity.png){#fig:modularity}
+:::::
 
 ## Gene Ontology enrichment
 
 Most blocks in SBM show some level of GO enrichment (Table 1). In particular, several of the Level-2 blocks show a remarkable consistency in their enrichment. For example, Level-3 block 0 in the head is related to neural signaling, sensory perception, and signal transduction. Examining lower levels of the hierarchy, we see that often the daughter blocks at Level-2 are also enriched with generally similar terms, as expected, but these tend to become more specific as we go down the hierarchy. For example, Level-2 blocks 4 and 6: (4-0-0-0) G protein-coupled receptor signaling pathway, detection of light stimulus, phototransduction; (6-0-0-0) synapse organization, axon development, cell-cell signaling, behavior. Many of these enrichments are exclusive to one of the level-1 blocks. Most other Level-2 and Level-1 blocks are readily identifiable as related to development, DNA transcription, cell respiration, cell cycle regulation, immune response, sugar metabolism, among others (@fig:Emats). All WGCNA modules show GO enrichment (but modules 5, 6, and 7 in the body show only one or two enriched terms, and could be false positives. The more convincing specific enrichments show several related enriched terms). The remaining modules show between 20 and 462 enriched terms, with a mean of 116 terms and median of 58 terms. In general, these enrichments tend to be less specific than the SBM blocks, spanning several biological processes. Supporting Information Table S2 shows GO enrichment for all SBM blocks and WGCNA modules. 
 
-  Tissue     Level 1          Level 2           Level 3        Level 4     Level 5
---------    --------------   ---------------  ------------- ------------- -------------
-Head         65\% (53/82)     100\% (21/21)    100\% (6/6)   100\% (3/3)   100\% (2/2)
-Body         65\% (51/78)     95\% (20/21)     100\% (9/9)   100\% (3/3)   100\% (2/2)
-      
-Table: Number of blocks at each level of the SBM hierarchy that show significant GO enrichment at the 5\% FDR level with a minimum of 4 genes in the enriched set.
-
+::::: column-span
 ![Enriched GO categories in a level-3 block in the head (0-0-0), related to neural signaling. Panels show the corresponding level-1 blocks. Bars correspond to the top 8 GO categories, the x-axis shows the number of genes associated with each term. The last panel shows the most similar WGCNA module, which also contains signaling-related genes, but at a lower resolution and fails to cluster the phototransduction genes, which are in WGCNA module 5 (not shown, but see SI table 2.1).](figures/000_go_map.png){#fig:go_map}
+:::::
 
 ### Notable individual clusters
 
 Level 2 block 0-0-0 in the head is one of the easiest to interpret, being entirely related to nervous tissue function. @Fig:go_map shows the top 8 GO categories for each of the level-1 blocks in block 0-0-0, and the most neuronal enriched WGCNA grouping, module 4. The SBM blocks separate vesicle exocytosis, neuronal differentiation, phototransduction, synaptic signaling, and, interestingly, there is a block related to mRNA processing, which is notable given that alternative splicing is thought to be more common in brain tissues [@Su2018-nz]. WGCNA module 4 recovers some of this enrichment but in a less granular way. The cell adhesion and developmental part of the enrichment in block 0-0-0 is separated between WGCNA modules 4 and 5. Some of the level-1 blocks shown in @fig:go_map are among the most assortative (above 0.03, see @fig:modularity B), and so are prime candidates for detection in WGCNA. The alternative splicing module has a much lower assortativity, so it is not surprising that WGCNA could not detect it.
 
-Some of the most specific enrichments in the SBM are the translation-related blocks. In both body and head, ribosomal proteins are clustered in small and highly enriched level-1 blocks: 6 level-1 blocks in the head and 11 in the body are composed of virtually only ribosome-related protein genes. All are very small, being composed of between 10-30 genes, have low assortativity (@fig:assort_translation), and are enriched for very few terms, almost all related to translation. In the body, all of these translation blocks are grouped in level-4 block 1; in the head, they are split between level-4 blocks 1 and 2. Both groups are visible in @fig:Emats . There is no equivalent module in WGCNA, but all of the translation-related genes are in the same much larger modules (module 2 in the head, 295 genes; and module 2 in the body, 345 genes), both of which show enrichment for translation but also several other categories. In the body WGCNA module 2, we see 68 enriched terms related to translation, cell respiration, and several small molecules' metabolic processes; in module 2 of the head tissue, we see 35 enriched terms related to translation, cell respiration, and muscle development. The level-2 clustering of level-1 blocks in the SBM is also informative. In the head, all of the translation level-1 blocks are in their own level-2 blocks (8-4-1-1, 7-2-2-1, and 2-2-2-1). In contrast, in the body, the level-1 translation blocks sometimes share level-2 blocks with cell respiration blocks: 1-7-1-1 is composed exclusively of level-1 blocks related to translation, but block 14-9-1-1 is split into translation and mitochondrial respiration level-1 blocks. WGCNA also places cell respiration-related genes in the body on the same module 2.
+Some of the most specific enrichments in the SBM are the translation-related blocks. In both body and head, ribosomal proteins are clustered in small and highly enriched level-1 blocks: 6 level-1 blocks in the head and 11 in the body are composed of virtually only ribosome-related protein genes. All are very small, being composed of between 10-30 genes, have low assortativity (@fig:assort_translation), and are enriched for very few terms, almost all related to translation. In the body, all of these translation blocks are grouped in level-4 block 1; in the head, they are split between level-4 blocks 1 and 2. Both groups are visible in @fig:Emats . There is no equivalent module in WGCNA, but all translation-related genes are in the same much larger modules (module 2 in the head, 295 genes; and module 2 in the body, 345 genes), both of which show enrichment for translation but also several other categories. In the body WGCNA module 2, we see 68 enriched terms related to translation, cell respiration, and several small molecules' metabolic processes; in module 2 of the head tissue, we see 35 enriched terms related to translation, cell respiration, and muscle development. The level-2 clustering of level-1 blocks in the SBM is also informative. In the head, all the translation level-1 blocks are in their own level-2 blocks (8-4-1-1, 7-2-2-1, and 2-2-2-1). In contrast, in the body, the level-1 translation blocks sometimes share level-2 blocks with cell respiration blocks: 1-7-1-1 is composed exclusively of level-1 blocks related to translation, but block 14-9-1-1 is split into translation and mitochondrial respiration level-1 blocks. WGCNA also places cell respiration-related genes in the body on the same module 2.
 
+<!-- $\hrulefill$ -->
+
+::::: column-span
 ![Comparison of assortativity values between level-1 blocks enriched for cytoplasmic translation and all other blocks. Blocks enriched for cytoplasmic translation tend to be less assortative.](figures/assortativity_cytoplasmic_translation.png){#fig:assort_translation}
-
+:::::
 
 # Discussion
 
-Here we have used the Stochastic Block Model to explore the organization of gene co-expression networks in female _Drosophila melanogaster_. The SBM, in contrast with other methods explored here, clusters genes by finding the groups that capture as much information on the network of interactions as possible, and was able to (i) cluster all genes into blocks, (ii) identify blocks with both, high resolution (few genes per block) and high functional content (significant GO associations), and (iii) identify blocks that are assortative (higher within- than between-block correlation) as well as non-assortative.
+Here we have used the Stochastic Block Model to explore the organization of gene co-expression networks in female _Drosophila melanogaster_. The SBM, in contrast with other methods explored here, clusters genes by finding the groups that capture as much information on the network of interactions as possible, and was able to (i) cluster all genes into blocks; (ii) identify blocks with both, high resolution (few genes per block) and high functional content (significant GO associations); and (iii) identify blocks that are assortative (higher within- than between-block correlation) as well as non-assortative.
 This last point exemplifies the novelty of the SBM approach.
 Using the SBM implies a shift on how we explore co-expression networks: instead of assuming the network is modular and clustering genes based on this assumption, we uncover clusters based on their information content and ask if the resulting groups are modular.
 Surprisingly, the answer is not always.
@@ -210,9 +231,8 @@ Surprisingly, the answer is not always.
 
 The other clustering approaches we use, that explicitly search for assortative modules, carry important downsides.
 Methods that use modularity maximization, like MMC, are subject to know statistical problems, surprisingly being prone to both overfitting (finding modular community structure where there is none, @Guimera2004-jq) and under-fitting (failing to find modular structure), due to a problem known as the resolution limit, which causes small modules to be incorrectly clustered together in large networks [@Fortunato2007-ao].
-Using WGCNA involves manually tuning several parameters:
-the choice of using a hard or soft threshold, the exponent in the threshold, the method of separating the genes included in the hierarchical clustering into the modules.
-These are free parameters that can drastically change the number of genes that are clustered and the number and size of modules. 
+Using WGCNA involves manually tuning several parameters: the choice of using a hard or soft threshold, the exponent in the threshold, the method of separating the genes included in the hierarchical clustering into the modules.
+These are free parameters that can drastically change the number of genes that are clustered and the number and size of modules.
 For tuning these parameters, the WGCNA workflow leans heavily on the expectation that gene co-expression networks should be approximately scale-free [@Dong2007-ff; @Bergmann2004-vw; @Jeong2000-xe], but, despite its popularity, this expectation might be unwarranted [@Broido2019-hg; @Khanin2006-ve; @Stumpf2005-ed; @Keller2005-nf].
 Even with optimal parameters, WGCNA often fails to assign a substantial proportion of genes to any module.
 While WGCNA is efficient in finding hub genes, if some functional gene group does not have a hub or has low average similarities, this group will never be identified.
@@ -259,15 +279,19 @@ This similarity would likely be missed by modularity maximization or hierarchica
 Meanwhile, the SBM would correctly identify these genes connecting two modules as being similar due to their shared connectivity pattern.
 Having access to these types of blocks, which are real but non-assortative, could bring new insight into the organization of gene co-expression networks. 
 
+## Conclusion
+
 Here we find that non-modular blocks are widespread in gene co-expression networks, and that the evidence for their functional relevance is as strong as for modular blocks. 
 This highlights the need to incorporate other sources of information, beyond assortativity, when exploring biological networks.
 More studies using methods that don’t rely on modularity maximization will be needed to determine whether there are general patterns of non-modular organization.
 For example, here we find that, despite the differences in gene clusters between body and head, the non-modular blocks tend to be associated with cytoplasmic translation.
 Will this emerge as a general feature of transcriptomes? 
 
+:::
+
 ## Supporting information
 
-Supporting information can be found at [https://github.com/diogro/SBM_manuscript](https://github.com/diogro/SBM_manuscript).
+Supporting information can be found at [https://github.com/diogro/SBM_manuscript](https://github.com/diogro/SBM_manuscript). Code for running the SBM on expression data can be found at [https://github.com/ayroles-lab/SBM-tools](https://github.com/ayroles-lab/SBM-tools)
 
 # Author Contributions
 
@@ -288,6 +312,8 @@ Supporting information can be found at [https://github.com/diogro/SBM_manuscript
 
 # Acknowledgments
 
-We thank all members of the Ayroles lab for their support. We thank Monique Simon and Cara Weisman for their thoughtful comments. D.M. is funded by a fellowship from the Princeton Presidential Postdoctoral Research Fellows Program. L.P. was funded by a Long-Term Postdoctoral Fellowship from the Human Frontiers Science Program and is funded by the Max Planck Society. J.A. is funded by grants from the NIH: National Institute of Environmental Health Sciences (R01-ES029929) and National Institute of General Medical Sciences (NIGMS) (R35GM124881). This study was supported in part by the Lewis-Sigler Institute for Integrative Genomics at Princeton University. We also acknowledge that the work reported in this paper was substantially performed using the Princeton Research Computing resources at Princeton University which is a consortium of groups led by the Princeton Institute for Computational Science and Engineering (PICSciE) and Office of Information Technology's Research Computing. 
+We thank all members of the Ayroles lab for their support. We thank Monique Simon and Cara Weisman for their thoughtful comments on an earlier version of the manuscript. We also thank Tiago Peixoto for help in using graph-tool. D.M. is funded by a fellowship from the Princeton Presidential Postdoctoral Research Fellows Program. L.P. was funded by a Long-Term Postdoctoral Fellowship from the Human Frontiers Science Program and is funded by the Max Planck Society. J.A. is funded by grants from the NIH: National Institute of Environmental Health Sciences (R01-ES029929) and National Institute of General Medical Sciences (NIGMS) (R35GM124881). This study was supported in part by the Lewis-Sigler Institute for Integrative Genomics at Princeton University. We also acknowledge that the work reported in this paper was substantially performed using the Princeton Research Computing resources at Princeton University which is a consortium of groups led by the Princeton Institute for Computational Science and Engineering (PICSciE) and Office of Information Technology's Research Computing. 
+
 
 # References
+
