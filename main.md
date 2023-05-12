@@ -3,7 +3,9 @@ title: Reassessing the modularity of gene co-expression networks using the Stoch
 version: "1.0"
 author:
   - Diogo Melo:
-      institute: lsi
+      institute: 
+        - lsi
+        - eeb
       email: damelo@princeton.edu
       orcid: 0000-0002-7603-0092
       correspondence: "yes"
