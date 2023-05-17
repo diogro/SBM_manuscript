@@ -293,7 +293,7 @@ Will this emerge as a general feature of transcriptomes?
 
 ## Supporting information
 
-Supporting information can be found at [https://github.com/diogro/SBM_manuscript](https://github.com/diogro/SBM_manuscript). Code for running the SBM on expression data can be found at [https://github.com/ayroles-lab/SBM-tools](https://github.com/ayroles-lab/SBM-tools)
+Supporting information can be found at [https://github.com/diogro/SBM_manuscript](https://github.com/diogro/SBM_manuscript). Code for using graph-tools to cluster expression data using the SBM can be found at [https://github.com/ayroles-lab/SBM-tools](https://github.com/ayroles-lab/SBM-tools)
 
 # Author Contributions
 
