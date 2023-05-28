@@ -272,7 +272,7 @@ However, no such clear structural and physical constraints exist on gene express
 While we might expect related genes to be co-expressed and therefore highly correlated, non-linear phenomena can lead to a complete decoupling of the expression levels of co-expressed genes.
 For example, the effect of gene A on gene B could have a saturation point after which increasing expression of gene A no longer leads to higher levels of gene B, and no correlation is detected in this regime, even if the genes are co-expressed.
 The marked difference in the level of modularity across the two tissues in our samples illustrates just how variable modularity can be, even within the same species, sex, and population.
-Furthermore, modularity is not a necessary feature of biological organization [even in the case of evolvability, see @Pavlicev2011-xm; @Roseman2009-kk], and only searching for modularity can blind us to alternative organizations, as we have shown.
+Furthermore, modularity is not a necessary feature of biological organization [even in the case of evolvability, see @Hansen2003-fh; @Roseman2009-kk;@Pavlicev2011-xm], and only searching for modularity can blind us to alternative organizations, as we have shown.
 Indeed, the profound interconnectedness of gene regulation networks has led to a small revolution in our understanding of disease and complex traits [@Boyle2017-re].
 The very high dimensionality of gene co-expression networks also allows for
 genes to be similar in ways that do not lead to high correlations. 
