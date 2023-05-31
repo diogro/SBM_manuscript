@@ -8,3 +8,4 @@ out/desktop.ini
 out/*Icon*
 *Icon*
 figures/guide_plots/
+.~lock.*
