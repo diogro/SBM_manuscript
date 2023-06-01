@@ -37,7 +37,7 @@ header-includes:
 - \usepackage{indentfirst}
 - \setlength\parindent{24pt}
 - \usepackage[left]{lineno}
-- \modulolinenumbers[5]
+- \modulolinenumbers[1]
 - \usepackage{multicol}
 - \usepackage{setspace}
 - \usepackage{float}
@@ -72,14 +72,15 @@ $\hrulefill$
 
 \end{abstract}
 
-\linenumbers
 \normalsize 
-\onehalfspacing
+\doublespacing
 
 
 # Introduction
 
 ::: columns
+
+\linenumbers
 
 Gene co-expression networks inform our understanding of cell and organismal function by encoding associations between genes. Associations between expression levels can indicate common function, and the number of connections can point to central or regulatory genes [@Van_Dam2018-nf]. Due to the large dimensionality of gene expression data, often composed of several thousands of gene expression measures, a major tool in the analysis of co-expression is gene clustering: separating the genes into related groups, which can then be explored separately [@Dhaeseleer2005-jv]. This drastically reduces the number of genes we need to consider at the same time and allows for the identification of hubs or centrally connected genes that can be used to inform further experimental validation [@Langfelder2008-qa; @Imenez_Silva2017-ic]. 
 
@@ -293,6 +294,12 @@ Will this emerge as a general feature of transcriptomes?
 ## Supporting information
 
 Supporting information can be found at [https://github.com/diogro/SBM_manuscript](https://github.com/diogro/SBM_manuscript). Code for using graph-tools to cluster expression data using the SBM can be found at [https://github.com/ayroles-lab/SBM-tools](https://github.com/ayroles-lab/SBM-tools)
+
+1. SI table 1 -- Gene clustering using SBM and WGCNA
+
+1. SI table 2 -- GO enrichment for all methods and tissues.
+
+1. SI table 3 -- Summary statistics for all SBM blocks.
 
 # Author Contributions
 
