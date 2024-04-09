@@ -1,7 +1,7 @@
 main := SBM
 logfile := $(main)_$(shell date +%F)
 all:
-	pandoc main.md --template=pandoc/default.latex --lua-filter=pandoc/scholarly-metadata.lua --lua-filter=pandoc/author-info-blocks.lua  --filter pandoc-crossref --citeproc --pdf-engine=xelatex -o $(main).pdf
+	pandoc main.md --template=pandoc/default.latex --verbose --lua-filter=pandoc/scholarly-metadata.lua --lua-filter=pandoc/author-info-blocks.lua  --filter pandoc-crossref --citeproc --pdf-engine=xelatex -o $(main).pdf
 	mv $(main).pdf out/
 	pandoc main.md --reference-doc=pandoc/custom-reference.docx --template=pandoc/default.latex --lua-filter=pandoc/scholarly-metadata.lua --lua-filter=pandoc/author-info-blocks.lua  --filter pandoc-crossref --citeproc -o $(main).docx
 	mv $(main).docx out/
