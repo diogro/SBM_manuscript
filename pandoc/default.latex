@@ -593,8 +593,8 @@ $endif$
 
 $for(include-before)$
 $include-before$
-
 $endfor$
+
 $if(toc)$
 $if(toc-title)$
 \renewcommand*\contentsname{$toc-title$}
@@ -629,8 +629,7 @@ $if(has-frontmatter)$
 \mainmatter
 $endif$
 
-% Font size for the affiliations:
-\footnotesize 
+\footnotesize
 $body$
 
 $if(has-frontmatter)$
