@@ -71,26 +71,22 @@ mainfontoptions:
 csl: ./pandoc/plos.csl
 bibliography: ['./references.bib']
 keywords: [modularity, gene co-expression, WGCNA, MMC, clustering, RNA-seq, GO enrichment]
-abstract: "Finding communities in gene co-expression networks is a common first step toward extracting biological insight from these complex datasets. Most community detection algorithms expect genes to be organized into assortative modules, that is, groups of genes that are more associated with each other than with genes in other groups. While it is reasonable to expect that these modules exist, using methods that assume they exist a priori is risky, as it guarantees that alternative organizations of gene interactions will be ignored. Here, we ask: can we find meaningful communities without imposing a modular organization on gene co-expression networks, and how modular are these communities? For this, we use of a recently developed community detection method, the weighted degree corrected stochastic block model (SBM), that does not assume that assortative modules exist. Instead, the SBM attempts to efficiently use all information contained in the co-expression graph to separate the genes into hierarchically organized blocks of genes. Using RNA-seq gene expression data measured in two tissues derived from an outbred population of _Drosophila melanogaster_, we show that (a) the SBM is able to find ten times as many groups as competing methods, that (b) several of those gene groups are not modular, and that (c) the functional enrichment for non-modular groups is as strong as for modular communities. These results show that the transcriptome is structured in more complex ways than traditionally thought and that we should revisit the long-standing assumption that modularity is the main driver of the structuring of gene co-expression networks."
 ---
 
-\vspace{9pt}
-\begin{abstract}
-
+\normalsize
+# Abstract
 Finding communities in gene co-expression networks is a common first step toward extracting biological insight from these complex datasets. Most community detection algorithms expect genes to be organized into assortative modules, that is, groups of genes that are more associated with each other than with genes in other groups. While it is reasonable to expect that these modules exist, using methods that assume they exist a priori is risky, as it guarantees that alternative organizations of gene interactions will be ignored. Here, we ask: can we find meaningful communities without imposing a modular organization on gene co-expression networks, and how modular are these communities? For this, we use a recently developed community detection method, the weighted degree corrected stochastic block model (SBM), that does not assume that assortative modules exist. Instead, the SBM attempts to efficiently use all information contained in the co-expression network to separate the genes into hierarchically organized blocks of genes. Using RNA-seq gene expression data measured in two tissues derived from an outbred population of \textit{Drosophila melanogaster}, we show that (a) the SBM is able to find ten times as many groups as competing methods, that (b) several of those gene groups are not modular, and that (c) the functional enrichment for non-modular groups is as strong as for modular communities. These results show that the transcriptome is structured in more complex ways than traditionally thought and that we should revisit the long-standing assumption that modularity is the main driver of the structuring of gene co-expression networks.
 
-\noindent
-$\hrulefill$
+# Author Summary
 
-\end{abstract}
+Understanding how genes work together is crucial for unraveling the biological processes underlying complex traits. To gain insight into these genetic interactions, researchers often analyze gene co-expression networks, in which genes are linked based on the similarity of their expression patterns among different individuals. Traditionally, it has been assumed that these networks are organized into distinct assortative modules, in which genes are more connected to each other within modules than between them. However, by using a novel non-parametric clustering approach called the Stochastic Block Model, we show that fruit fly transcriptomes contain not only assortative, modular gene clusters, but also functionally relevant non-modular clusters that would be overlooked by standard methods.  This suggests that transcriptional networks may be more complex and diverse than previously thought. Our findings highlight the importance of using unbiased clustering techniques to fully capture the various architectures of gene co-expression networks and their potential biological significance.
 
-\normalsize 
-\doublespacing
-
+\newpage
 
 # Introduction
 
 \linenumbers
+\doublespacing
 
 Gene co-expression networks inform our understanding of cell and organismal function by encoding associations between genes. Associations between expression levels can indicate common function, and the number of connections can point to central or regulatory genes [@Van_Dam2018-nf]. Due to the large dimensionality of gene expression data, often composed of several thousands of gene expression measures, a major tool in the analysis of co-expression is gene clustering: separating the genes into related groups, which can then be explored separately [@Dhaeseleer2005-jv]. This drastically reduces the number of genes we need to consider at the same time and allows for the identification of hubs or centrally connected genes that can be used to inform further experimental validation [@Langfelder2008-qa; @Imenez_Silva2017-ic].
 
